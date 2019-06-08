@@ -10,7 +10,6 @@ const rgbToHex = rgb => {
   );
 };
 
-const loop
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -24,7 +23,7 @@ class App extends React.Component {
   }
 
   // Not sure if this should be async
-  handleClick = async () => {
+  handleGenerate = async () => {
     try {
       const url = "http://colormind.io/api/";
       const inputData = {
@@ -61,7 +60,7 @@ class App extends React.Component {
           "--colorLightShades": `${this.state.colorLightShades}`
         }}
       >
-        <button className="generateColor" onClick={this.handleClick}>
+        <button className="generateColor" onClick={this.handleGenerate}>
           Generate
         </button>
         <button></button>
