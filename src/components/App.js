@@ -10,6 +10,15 @@ const rgbToHex = rgb => {
   );
 };
 
+const processRgb = rgb => {
+  if (rgb.includes("a")) {
+    const arr = rgb.slice(5, -1).split(", ");
+    arr.pop();
+    return arr;
+  }
+  return rgb.slice(4, -1).split(", ");
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -18,11 +27,22 @@ class App extends React.Component {
       colorDarkAccent: "",
       colorMain: "",
       colorLightAccent: "",
-      colorLightShades: ""
+      colorLightShades: "",
+      selectedColor: ""
     };
   }
 
-  // Not sure if this should be async
+  handleCopy = e => {
+    const color = window
+      .getComputedStyle(e.target)
+      .getPropertyValue("background-color");
+    console.log(color);
+    const rgbArr = processRgb(color);
+    console.log(rgbArr);
+    this.setState({ selectedColor: rgbToHex(rgbArr) });
+    console.log(this.state.selectedColor);
+  };
+
   handleGenerate = async () => {
     try {
       const url = "http://colormind.io/api/";
@@ -34,7 +54,7 @@ class App extends React.Component {
         method: "POST"
       };
       const response = await fetch(url, inputData);
-      if (!response.ok) throw new Error("API is broken!"); 
+      if (!response.ok) throw new Error("API is broken!");
       const data = await response.json();
       this.setState({
         colorDarkShades: rgbToHex(data.result[0]),
@@ -63,13 +83,19 @@ class App extends React.Component {
         <button className="generateColor" onClick={this.handleGenerate}>
           Generate
         </button>
-        <button></button>
-        <button></button>
-        <button></button>
-        <button></button>
-        <button></button>
+        <button onClick={this.handleCopy} />
+        <button onClick={this.handleCopy} />
+        <button onClick={this.handleCopy} />
+        <button onClick={this.handleCopy} />
+        <button onClick={this.handleCopy} />
+        <input
+          id="clipboard"
+          type="text"
+          defaultValue={this.state.selectedColor}
+        />
       </div>
     );
   }
 }
+
 export default App;
