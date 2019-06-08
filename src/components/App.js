@@ -1,37 +1,33 @@
 import React from "react";
 import "../styles/App.css";
 
-// const data = {
-//   result: [
-//     [214, 78, 69],
-//     [247, 242, 163],
-//     [201, 216, 147],
-//     [57, 141, 112],
-//     [62, 80, 64]
-//   ]
-// };
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
-      color: "#e15426"
+      colorDarkShades: "",
+      colorDarkAccent: "",
+      colorMain: "",
+      colorLightAccent: "",
+      colorLightShades: ""
     };
   }
 
-  handleClick = () => {
-    this.setState({ color: "#2b8f9b" });
-  };
-  handleClick2 = () => {
-    this.setState({ color: "#1c1f2a" });
-  };
+  // Not sure if this should be async
+  handleClick = async () => {
+    const rgbToHex = rgb => {
+      return (
+        "#" +
+        ("0" + parseInt(rgb[0]).toString(16)).slice(-2) +
+        ("0" + parseInt(rgb[1]).toString(16)).slice(-2) +
+        ("0" + parseInt(rgb[2]).toString(16)).slice(-2)
+      );
+    };
 
-  componentDidMount = async () => {
     try {
       const url = "http://colormind.io/api/";
       const inputData = {
-        body:
-          '{ "input":[[44,43,44],[90,83,82],"N","N","N"],"model":"default"}',
+        body: '{ "input":["N","N","N"],"model":"default"}',
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
@@ -40,7 +36,15 @@ class App extends React.Component {
       const response = await fetch(url, inputData);
       if (!response.ok) throw new Error("API is broken!"); // Can also use response.status >= 400
       const data = await response.json();
-      this.setState({ data: data });
+      console.log(data.result);
+
+      this.setState({
+        colorDarkShades: rgbToHex(data.result[0]),
+        colorDarkAccent: rgbToHex(data.result[1]),
+        colorMain: rgbToHex(data.result[2]),
+        colorLightAccent: rgbToHex(data.result[3]),
+        colorLightShades: rgbToHex(data.result[4])
+      });
     } catch (err) {
       console.log(err);
     }
@@ -48,16 +52,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <div id="app" style={{ "--color-page-bg": `${this.state.color}` }}>
+      <div
+        id="app"
+        style={{
+          "--colorDarkShades": `${this.state.colorDarkShades}`,
+          "--colorDarkAccent": `${this.state.colorDarkAccent}`,
+          "--colorMain": `${this.state.colorMain}`,
+          "--colorLightAccent": `${this.state.colorLightAccent}`,
+          "--colorLightShades": `${this.state.colorLightShades}`
+        }}
+      >
         <button className="generateColor" onClick={this.handleClick}>
-          1
+          Generate
         </button>
-        <button className="generateColor" onClick={this.handleClick2}>
-          2
-        </button>
-        <button>3</button>
-        <button>4</button>
-        <button>5</button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
+        <button></button>
       </div>
     );
   }
