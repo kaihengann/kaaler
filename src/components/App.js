@@ -36,11 +36,8 @@ class App extends React.Component {
     const color = window
       .getComputedStyle(e.target)
       .getPropertyValue("background-color");
-    console.log(color);
     const rgbArr = processRgb(color);
-    console.log(rgbArr);
     this.setState({ selectedColor: rgbToHex(rgbArr) });
-    console.log(this.state.selectedColor);
   };
 
   handleGenerate = async () => {
