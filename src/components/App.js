@@ -1,6 +1,16 @@
 import React from "react";
 import "../styles/App.css";
 
+const rgbToHex = rgb => {
+  return (
+    "#" +
+    ("0" + parseInt(rgb[0]).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[1]).toString(16)).slice(-2) +
+    ("0" + parseInt(rgb[2]).toString(16)).slice(-2)
+  );
+};
+
+const loop
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -15,29 +25,18 @@ class App extends React.Component {
 
   // Not sure if this should be async
   handleClick = async () => {
-    const rgbToHex = rgb => {
-      return (
-        "#" +
-        ("0" + parseInt(rgb[0]).toString(16)).slice(-2) +
-        ("0" + parseInt(rgb[1]).toString(16)).slice(-2) +
-        ("0" + parseInt(rgb[2]).toString(16)).slice(-2)
-      );
-    };
-
     try {
       const url = "http://colormind.io/api/";
       const inputData = {
-        body: '{ "input":["N","N","N"],"model":"default"}',
+        body: '{ "model":"default"}',
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         method: "POST"
       };
       const response = await fetch(url, inputData);
-      if (!response.ok) throw new Error("API is broken!"); // Can also use response.status >= 400
+      if (!response.ok) throw new Error("API is broken!"); 
       const data = await response.json();
-      console.log(data.result);
-
       this.setState({
         colorDarkShades: rgbToHex(data.result[0]),
         colorDarkAccent: rgbToHex(data.result[1]),
