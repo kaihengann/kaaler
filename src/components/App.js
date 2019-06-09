@@ -32,6 +32,8 @@ class App extends React.Component {
     };
   }
 
+  // handleClick = e => {};
+
   handleCopy = e => {
     const color = window
       .getComputedStyle(e.target)
@@ -40,7 +42,6 @@ class App extends React.Component {
     this.setState({ selectedColor: rgbToHex(rgbArr) });
   };
 
-  // TODO: add proxy to remove unsafe script warning?
   handleGenerate = async () => {
     try {
       const proxy = "https://cors-anywhere.herokuapp.com/";
@@ -79,6 +80,7 @@ class App extends React.Component {
 
     return (
       <div id="app" style={appStyle}>
+        <Tooltip />
         <Toolbar onClick={this.handleCopy} onGenerate={this.handleGenerate} />
         <span>{this.state.selectedColor}</span>
       </div>
@@ -89,11 +91,11 @@ class App extends React.Component {
 const Toolbar = ({ onClick, onGenerate }) => {
   return (
     <div className="toolBar">
-      <button className='colorButton' onClick={onClick} />
-      <button className='colorButton' onClick={onClick} />
-      <button className='colorButton' onClick={onClick} />
-      <button className='colorButton' onClick={onClick} />
-      <button className='colorButton' onClick={onClick} />
+      <button className="colorButton" onClick={onClick} />
+      <button className="colorButton" onClick={onClick} />
+      <button className="colorButton" onClick={onClick} />
+      <button className="colorButton" onClick={onClick} />
+      <button className="colorButton" onClick={onClick} />
       <GenerateButton onGenerate={onGenerate} />
     </div>
   );
@@ -107,4 +109,18 @@ const GenerateButton = ({ onGenerate }) => {
   );
 };
 
+const Tooltip = () => {
+  return (
+    <div className="toolTip">
+      <label className="toolTipText">
+        Hex
+      </label>
+      <input type="text" name="hexInput" className="toolTipInput" />
+      <label className="toolTipText">
+        RGB
+      </label>
+      <input type="text" className="toolTipInput" />
+    </div>
+  );
+};
 export default App;
