@@ -80,16 +80,24 @@ class App extends React.Component {
         <button className="generateColor" onClick={this.handleGenerate}>
           G
         </button>
-        <button onClick={this.handleCopy} />
-        <button onClick={this.handleCopy} />
-        <button onClick={this.handleCopy} />
-        <button onClick={this.handleCopy} />
-        <button onClick={this.handleCopy} />
+        <Toolbar onClick={this.handleCopy} />
         <span>{this.state.selectedColor}</span>
-        
       </div>
     );
   }
 }
+
+const Toolbar = ({ onClick }) => {
+  return (
+    <div className="toolBar">
+      <button onClick={onClick} />
+      <button onClick={onClick} />
+      <button onClick={onClick} />
+      <button onClick={onClick} />
+      <button onClick={onClick} />
+    </div>
+  )
+}
+
 
 export default App;

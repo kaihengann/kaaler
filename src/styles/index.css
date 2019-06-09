@@ -33,38 +33,49 @@ button {
   height: 50px;
   background-color: none;
   border-radius: 50%;
-  border: 2px solid rgb(230, 230, 230);
+  border: 2px solid rgb(240, 240, 240);
   margin: 5px;
   color: black;
   font-size: 1rem;
-  box-shadow: inset 3px 4px 7px -2px rgba(20, 20, 20, 0.3);
+  box-shadow: inset 3px 4px 7px -2px rgba(20, 20, 20, 0.7);
   transition: background 1s ease, color 1s ease, transform 0.3s , box-shadow 0.4s ease-in-out 0s;
 
 }
 
 button:hover, button:active {
   transform: scale(1.005) translate(0, -2px);
-  box-shadow: inset 3px 4px 7px -2px rgba(233, 233, 233, 0.3), 5px 8px 12px -6px rgba(0, 0, 0, 0.4);
+  box-shadow: inset 3px 4px 7px -2px rgba(20, 20, 20, 0.3), 5px 8px 10px -10px rgba(0, 0, 0, 0.8);
 } 
 
-button:nth-child(2) {
+.toolBar {
+  background-color: rgb(61, 61, 61);
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  box-shadow: inset 3px 4px 7px -10px rgba(20, 20, 20, 0.3),5px 8px 12px -6px rgba(0, 0, 0, 0.4);
+  position: absolute;
+  bottom: 30px;
+}
+.toolBar button:nth-child(1) {
   background-color: var(--colorDarkShades);
 }
-button:nth-child(3) {
+.toolBar button:nth-child(2) {
   background-color: var(--colorDarkAccent);
 }
-button:nth-child(4) {
+.toolBar button:nth-child(3) {
   background-color: var(--colorMain);
 }
-button:nth-child(5) {
+.toolBar button:nth-child(4) {
   background-color: var(--colorLightAccent);
 }
-button:nth-child(6) {
+.toolBar button:nth-child(5) {
   background-color: var(--colorLightShades);
 }
 
 .generateColor {
-  margin: 50px;
+  position: absolute;
+  bottom: 150px;
+  margin: 0;
+  z-index: 1;
 }
-
 
