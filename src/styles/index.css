@@ -3,6 +3,7 @@
   margin: 0;
   padding: 0;
   text-align: center;
+  font-family: 'Roboto';
 }
 
 /* #root {
@@ -28,15 +29,24 @@
 }
 
 button {
-  width: 100px;
+  width: 50px;
   height: 50px;
   background-color: none;
-  border-radius: 10px;
+  border-radius: 50%;
+  border: 2px solid rgb(230, 230, 230);
   margin: 5px;
   color: black;
   font-size: 1rem;
-  transition: background 1s ease, color 1s ease;
+  box-shadow: inset 3px 6px 9px 0 rgba(8, 8, 8, 0.4);
+  transition: background 1s ease, color 1s ease, transform 0.3s , box-shadow 0.4s ease-in-out 0s;
+
 }
+
+button:hover, button:active {
+  transform: scale(1.005) translate(0, -2px);
+  box-shadow: inset 3px 6px 9px 0px rgba(0, 0, 0, 0.125), 5px 8px 12px -6px rgba(0, 0, 0, 0.4);
+} 
+
 button:nth-child(2) {
   background-color: var(--colorDarkShades);
 }
@@ -56,3 +66,5 @@ button:nth-child(6) {
 .generateColor {
   margin: 50px;
 }
+
+

@@ -23,11 +23,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      colorDarkShades: "",
-      colorDarkAccent: "",
-      colorMain: "",
-      colorLightAccent: "",
-      colorLightShades: "",
+      colorDarkShades: "#e8e9d4",
+      colorDarkAccent: "#f7dbbc",
+      colorMain: "#e2a097",
+      colorLightAccent: "#41202e",
+      colorLightShades: "#22223d",
       selectedColor: ""
     };
   }
@@ -40,6 +40,7 @@ class App extends React.Component {
     this.setState({ selectedColor: rgbToHex(rgbArr) });
   };
 
+  // TODO: add proxy to remove unsafe script warning?
   handleGenerate = async () => {
     try {
       const url = "http://colormind.io/api/";
@@ -66,30 +67,26 @@ class App extends React.Component {
   };
 
   render() {
+    const appStyle = {
+      "--colorDarkShades": `${this.state.colorDarkShades}`,
+      "--colorDarkAccent": `${this.state.colorDarkAccent}`,
+      "--colorMain": `${this.state.colorMain}`,
+      "--colorLightAccent": `${this.state.colorLightAccent}`,
+      "--colorLightShades": `${this.state.colorLightShades}`
+    };
+
     return (
-      <div
-        id="app"
-        style={{
-          "--colorDarkShades": `${this.state.colorDarkShades}`,
-          "--colorDarkAccent": `${this.state.colorDarkAccent}`,
-          "--colorMain": `${this.state.colorMain}`,
-          "--colorLightAccent": `${this.state.colorLightAccent}`,
-          "--colorLightShades": `${this.state.colorLightShades}`
-        }}
-      >
+      <div id="app" style={appStyle}>
         <button className="generateColor" onClick={this.handleGenerate}>
-          Generate
+          G
         </button>
         <button onClick={this.handleCopy} />
         <button onClick={this.handleCopy} />
         <button onClick={this.handleCopy} />
         <button onClick={this.handleCopy} />
         <button onClick={this.handleCopy} />
-        <input
-          id="clipboard"
-          type="text"
-          defaultValue={this.state.selectedColor}
-        />
+        <span>{this.state.selectedColor}</span>
+        
       </div>
     );
   }
