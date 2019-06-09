@@ -33,7 +33,7 @@ class App extends React.Component {
       isColorClicked: false
     };
   }
-
+  // TODO: logic to change form value after new colors are generated while form is visible
   handleClick = e => {
     const color = window
       .getComputedStyle(e.target)

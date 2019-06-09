@@ -81,6 +81,7 @@
 }
 
 .generateButton {
+  background-color: rgb(253, 253, 253)
   display: block;
   width: auto;
   height: auto;
@@ -126,6 +127,7 @@
 }
 
 .toolTipInput {
+  -webkit-appearance: none;
   margin: 0px 5px;
   padding: 0 5px;
   width: auto;
