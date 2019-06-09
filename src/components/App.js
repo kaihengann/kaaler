@@ -43,7 +43,9 @@ class App extends React.Component {
   // TODO: add proxy to remove unsafe script warning?
   handleGenerate = async () => {
     try {
-      const url = "http://colormind.io/api/";
+      const proxy = "https://cors-anywhere.herokuapp.com/";
+      const api = "http://colormind.io/api/";
+      const url = proxy + api;
       const inputData = {
         body: '{ "model":"default"}',
         headers: {
