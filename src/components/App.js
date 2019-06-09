@@ -29,20 +29,32 @@ class App extends React.Component {
       colorLightAccent: "#41202e",
       colorLightShades: "#22223d",
       selectedColorHex: "",
-      selectedColorRgb: "" 
+      selectedColorRgb: "",
+      isColorClicked: false
     };
   }
 
-
-  handleCopy = e => {
+  handleClick = e => {
     const color = window
       .getComputedStyle(e.target)
       .getPropertyValue("background-color");
-    const rgbArr = processRgb(color);
-    console.log(rgbArr);
-    this.setState({ selectedColorHex: rgbToHex(rgbArr), selectedColorRgb: rgbArr.join(", ") });
-    
-    
+      const rgbArr = processRgb(color);
+    if (rgbArr.join(", ") === this.state.selectedColorRgb) {
+      this.setState({
+        isColorClicked: !this.state.isColorClicked
+      });
+    } else if (!this.state.isColorClicked) {
+      this.setState({
+        selectedColorHex: rgbToHex(rgbArr),
+        selectedColorRgb: rgbArr.join(", "),
+        isColorClicked: !this.state.isColorClicked
+      });
+    } else {
+      this.setState({
+      selectedColorHex: rgbToHex(rgbArr),
+      selectedColorRgb: rgbArr.join(", ")
+      });  
+    }
   };
 
   handleGenerate = async () => {
@@ -83,8 +95,13 @@ class App extends React.Component {
 
     return (
       <div id="app" style={appStyle}>
-        <Tooltip colorClickedHex={this.state.selectedColorHex} colorClickedRgb={this.state.selectedColorRgb} onChange={this.state.handleChange} />
-        <Toolbar onClick={this.handleCopy} onGenerate={this.handleGenerate} />
+        <Tooltip
+          colorClickedHex={this.state.selectedColorHex}
+          colorClickedRgb={this.state.selectedColorRgb}
+          onChange={this.state.handleChange}
+          isClicked={this.state.isColorClicked}
+        />
+        <Toolbar onClick={this.handleClick} onGenerate={this.handleGenerate} />
       </div>
     );
   }
@@ -111,16 +128,17 @@ const GenerateButton = ({ onGenerate }) => {
   );
 };
 
-const Tooltip = ({ colorClickedHex, colorClickedRgb }) => {
+const Tooltip = ({ colorClickedHex, colorClickedRgb, isClicked }) => {
   return (
-    <div className="toolTip">
-      <label className="toolTipText">
-        Hex
-      </label>
-      <input type="text" name="hexInput" className="toolTipInput" value={colorClickedHex} />
-      <label className="toolTipText">
-        RGB
-      </label>
+    <div className={isClicked ? "toolTip visible" : "toolTip hidden"}>
+      <label className="toolTipText">Hex</label>
+      <input
+        type="text"
+        name="hexInput"
+        className="toolTipInput"
+        value={colorClickedHex}
+      />
+      <label className="toolTipText">RGB</label>
       <input type="text" className="toolTipInput" value={colorClickedRgb} />
     </div>
   );
