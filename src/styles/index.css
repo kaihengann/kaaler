@@ -127,6 +127,11 @@
   z-index: 1;
 }
 
+input {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
 .toolTipInput {
   margin: 0px 5px;
   padding: 0 5px;
@@ -141,9 +146,9 @@
   border-bottom: 1px solid rgba(233, 233, 233, 0.9);
   text-align: center;
   font-size: 0.8rem;
-  -webkit-appearance: none;
+  
 }
-/* Show the tooltip text when you mouse over the tooltip container */
+
 .toolTip:hover {
   visibility: visible;
 }
