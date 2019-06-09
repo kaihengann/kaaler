@@ -28,18 +28,21 @@ class App extends React.Component {
       colorMain: "#e2a097",
       colorLightAccent: "#41202e",
       colorLightShades: "#22223d",
-      selectedColor: ""
+      selectedColorHex: "",
+      selectedColorRgb: "" 
     };
   }
 
-  // handleClick = e => {};
 
   handleCopy = e => {
     const color = window
       .getComputedStyle(e.target)
       .getPropertyValue("background-color");
     const rgbArr = processRgb(color);
-    this.setState({ selectedColor: rgbToHex(rgbArr) });
+    console.log(rgbArr);
+    this.setState({ selectedColorHex: rgbToHex(rgbArr), selectedColorRgb: rgbArr.join(", ") });
+    
+    
   };
 
   handleGenerate = async () => {
@@ -80,9 +83,8 @@ class App extends React.Component {
 
     return (
       <div id="app" style={appStyle}>
-        <Tooltip />
+        <Tooltip colorClickedHex={this.state.selectedColorHex} colorClickedRgb={this.state.selectedColorRgb} onChange={this.state.handleChange} />
         <Toolbar onClick={this.handleCopy} onGenerate={this.handleGenerate} />
-        <span>{this.state.selectedColor}</span>
       </div>
     );
   }
@@ -104,22 +106,22 @@ const Toolbar = ({ onClick, onGenerate }) => {
 const GenerateButton = ({ onGenerate }) => {
   return (
     <button className="generateButton" onClick={onGenerate}>
-      Generate
+      KAALER!
     </button>
   );
 };
 
-const Tooltip = () => {
+const Tooltip = ({ colorClickedHex, colorClickedRgb }) => {
   return (
     <div className="toolTip">
       <label className="toolTipText">
         Hex
       </label>
-      <input type="text" name="hexInput" className="toolTipInput" />
+      <input type="text" name="hexInput" className="toolTipInput" value={colorClickedHex} />
       <label className="toolTipText">
         RGB
       </label>
-      <input type="text" className="toolTipInput" />
+      <input type="text" className="toolTipInput" value={colorClickedRgb} />
     </div>
   );
 };
