@@ -28,7 +28,7 @@
   transition: background 1s ease, color 1s ease;
 }
 
-button {
+.colorButton {
   width: 50px;
   height: 50px;
   background-color: none;
@@ -42,7 +42,7 @@ button {
 
 }
 
-button:hover, button:active {
+.colorButton:hover, .colorButton:active {
   transform: scale(1.005) translate(0, -2px);
   box-shadow: inset 3px 4px 7px -2px rgba(20, 20, 20, 0.3), 5px 8px 10px -10px rgba(0, 0, 0, 0.8);
 } 
@@ -55,27 +55,42 @@ button:hover, button:active {
   box-shadow: inset 3px 4px 7px -10px rgba(20, 20, 20, 0.3),5px 8px 12px -6px rgba(0, 0, 0, 0.4);
   position: absolute;
   bottom: 30px;
+  z-index: 1;
 }
-.toolBar button:nth-child(1) {
+
+.colorButton:nth-child(1) {
   background-color: var(--colorDarkShades);
 }
-.toolBar button:nth-child(2) {
+
+.colorButton:nth-child(2) {
   background-color: var(--colorDarkAccent);
 }
-.toolBar button:nth-child(3) {
+
+.colorButton:nth-child(3) {
   background-color: var(--colorMain);
 }
-.toolBar button:nth-child(4) {
+
+.colorButton:nth-child(4) {
   background-color: var(--colorLightAccent);
 }
-.toolBar button:nth-child(5) {
+
+.colorButton:nth-child(5) {
   background-color: var(--colorLightShades);
 }
 
-.generateColor {
-  position: absolute;
-  bottom: 150px;
-  margin: 0;
+.generateButton {
+  display: block;
+  width: auto;
+  height: auto;
+  padding: 10px 20px;
+  margin: 10px auto;
+  border-radius: 20px;
   z-index: 1;
+  box-shadow:  5px 8px 10px -10px rgba(0, 0, 0, 0.9);
+  transition: transform 0.3s , box-shadow 0.4s ease-in-out 0s;
+}
+.generateButton:hover {
+  box-shadow:  5px 8px 10px -10px rgba(0, 0, 0, 0.8);
+  transform: translate(0, -1px);
 }
 

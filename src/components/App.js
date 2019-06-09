@@ -77,27 +77,32 @@ class App extends React.Component {
 
     return (
       <div id="app" style={appStyle}>
-        <button className="generateColor" onClick={this.handleGenerate}>
-          G
-        </button>
-        <Toolbar onClick={this.handleCopy} />
+        <Toolbar onClick={this.handleCopy} onGenerate={this.handleGenerate} />
         <span>{this.state.selectedColor}</span>
       </div>
     );
   }
 }
 
-const Toolbar = ({ onClick }) => {
+const Toolbar = ({ onClick, onGenerate }) => {
   return (
     <div className="toolBar">
-      <button onClick={onClick} />
-      <button onClick={onClick} />
-      <button onClick={onClick} />
-      <button onClick={onClick} />
-      <button onClick={onClick} />
+      <button className='colorButton' onClick={onClick} />
+      <button className='colorButton' onClick={onClick} />
+      <button className='colorButton' onClick={onClick} />
+      <button className='colorButton' onClick={onClick} />
+      <button className='colorButton' onClick={onClick} />
+      <GenerateButton onGenerate={onGenerate} />
     </div>
-  )
-}
+  );
+};
 
+const GenerateButton = ({ onGenerate }) => {
+  return (
+    <button className="generateButton" onClick={onGenerate}>
+      Generate
+    </button>
+  );
+};
 
 export default App;
