@@ -187,7 +187,7 @@ const Button = ({ className, text, link }) => {
 const CardsContainer = () => {
   return (
     <div className="cardsContainer">
-      <h2>What we offer</h2>
+      <h2>What we offer</h2>  
       <div className='card'>
         <i id='iconBranding' className='icon'></i>
         <h2>Branding</h2>
