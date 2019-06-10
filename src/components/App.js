@@ -38,7 +38,7 @@ class App extends React.Component {
     const color = window
       .getComputedStyle(e.target)
       .getPropertyValue("background-color");
-      const rgbArr = processRgb(color);
+    const rgbArr = processRgb(color);
     if (rgbArr.join(", ") === this.state.selectedColorRgb) {
       this.setState({
         isColorClicked: !this.state.isColorClicked
@@ -51,9 +51,9 @@ class App extends React.Component {
       });
     } else {
       this.setState({
-      selectedColorHex: rgbToHex(rgbArr),
-      selectedColorRgb: rgbArr.join(", ")
-      });  
+        selectedColorHex: rgbToHex(rgbArr),
+        selectedColorRgb: rgbArr.join(", ")
+      });
     }
   };
 
@@ -95,6 +95,8 @@ class App extends React.Component {
 
     return (
       <div id="app" style={appStyle}>
+        <NavBar />
+        <ShowCase />
         <Tooltip
           colorClickedHex={this.state.selectedColorHex}
           colorClickedRgb={this.state.selectedColorRgb}
@@ -143,4 +145,32 @@ const Tooltip = ({ colorClickedHex, colorClickedRgb, isClicked }) => {
     </div>
   );
 };
+
+const NavBar = () => {
+  return (
+    <div className="navBar">
+      <a href="https://kaaler.netlify.com/">HOME</a>
+      <a href="https://kaaler.netlify.com/">ABOUT</a>
+      <a href="https://kaaler.netlify.com/">BLOG</a>
+      <a href="https://kaaler.netlify.com/">GALLERY</a>
+      <a href="https://kaaler.netlify.com/">CONTACT</a>
+    </div>
+  );
+};
+
+const ShowCase = () => {
+  return(
+    <div className="showCase">
+      <div className="showCaseText">
+        <h1>
+          HELPING OUT CLIENTS ACHIEVE SUCCESS
+        </h1>
+        <p>
+          We make high-level design affordable for everyone
+        </p>
+      </div>
+    </div>
+  )
+}
+
 export default App;
