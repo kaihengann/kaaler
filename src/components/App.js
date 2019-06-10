@@ -97,6 +97,7 @@ class App extends React.Component {
       <div id="app" style={appStyle}>
         <NavBar />
         <ShowCase />
+        <CardsContainer />
         <Tooltip
           colorClickedHex={this.state.selectedColorHex}
           colorClickedRgb={this.state.selectedColorRgb}
@@ -149,11 +150,11 @@ const Tooltip = ({ colorClickedHex, colorClickedRgb, isClicked }) => {
 const NavBar = () => {
   return (
     <div className="navBar">
-      <a href="https://kaaler.netlify.com/">HOME</a>
-      <a href="https://kaaler.netlify.com/">ABOUT</a>
-      <a href="https://kaaler.netlify.com/">BLOG</a>
-      <a href="https://kaaler.netlify.com/">GALLERY</a>
-      <a href="https://kaaler.netlify.com/">CONTACT</a>
+      <a href="#0">HOME</a>
+      <a href="#0">ABOUT</a>
+      <a href="#0">BLOG</a>
+      <a href="#0">WORK</a>
+      <a href="#0">CONTACT</a>
     </div>
   );
 };
@@ -163,11 +164,53 @@ const ShowCase = () => {
     <div className="showCase">
       <div className="showCaseText">
         <h1>
-          HELPING OUT CLIENTS ACHIEVE SUCCESS
+          HELPING OUR CLIENTS ACHIEVE SUCCESS
         </h1>
         <p>
           We make high-level design affordable for everyone
         </p>
+        <div className='showCaseButtons'>
+          <Button className="button hiEmphasis" text="Get Started" link="#0" />
+          <Button className="button midEmphasis" text="Contact Us" link="#0" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const Button = ({ className, text, link }) => {
+  return (
+      <a href={link} className={className}>{text}</a>
+  )
+}
+
+const CardsContainer = () => {
+  return (
+    <div className="cardsContainer">
+      <h2>What we offer</h2>
+      <div className='card'>
+        <i id='iconBranding' className='icon'></i>
+        <h2>Branding</h2>
+      </div>
+      <div className='card'>
+        <i id='iconWebDesign' className='icon'></i>
+        <h2>Web Design</h2>
+      </div>
+      <div className='card'>
+        <i id='iconUxUi' className='icon'></i>
+        <h2>UX/UI</h2>
+      </div>
+      <div className='card'>
+        <i id='iconSEO' className='icon'></i>
+        <h2>SEO</h2>
+      </div>
+      <div className='card'>
+        <i id='iconPhotography' className='icon'></i>
+        <h2>Photography</h2>
+      </div>
+      <div className='card'>
+        <i id='iconMotion' className='icon'></i>
+        <h2>Motion</h2>
       </div>
     </div>
   )
