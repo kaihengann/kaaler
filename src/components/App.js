@@ -187,30 +187,36 @@ const Button = ({ className, text, link }) => {
 const CardsContainer = () => {
   return (
     <div className="cardsContainer">
-      <h2>What we offer</h2>  
+      <h2>WHAT WE OFFER</h2>  
       <div className='card'>
         <i id='iconBranding' className='icon'></i>
-        <h2>Branding</h2>
+        <h3>Branding</h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
       </div>
-      <div className='card'>
+      <div className='card card1'>
         <i id='iconWebDesign' className='icon'></i>
-        <h2>Web Design</h2>
+        <h3>Web Design</h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
       </div>
-      <div className='card'>
+      <div className='card card2'>
         <i id='iconUxUi' className='icon'></i>
-        <h2>UX/UI</h2>
+        <h3>UX/UI</h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
       </div>
-      <div className='card'>
+      <div className='card card3'>
         <i id='iconSEO' className='icon'></i>
-        <h2>SEO</h2>
+        <h3>SEO</h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
       </div>
-      <div className='card'>
+      <div className='card card4'>
         <i id='iconPhotography' className='icon'></i>
-        <h2>Photography</h2>
+        <h3>Photography</h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
       </div>
-      <div className='card'>
+      <div className='card card5'>
         <i id='iconMotion' className='icon'></i>
-        <h2>Motion</h2>
+        <h3>Motion</h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
       </div>
     </div>
   )
