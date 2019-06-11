@@ -19,6 +19,22 @@ const processRgb = rgb => {
   return rgb.slice(4, -1).split(", ");
 };
 
+const partialLuminance = arr => {
+  const newArr = arr.map(value => {
+    const colorSRGB = value / 255;
+    if (colorSRGB <= 0.03928) {
+      return colorSRGB / 12.92;
+    } else {
+      return ((colorSRGB + 0.055) / 1.055) ** 2.4;
+    }
+  });
+  return newArr;
+};
+
+const relativeLuminance = arr => {
+  return 0.2126 * arr[0] + 0.7152 * arr[1] + 0.0722 * arr[2];
+};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -72,6 +88,33 @@ class App extends React.Component {
       const response = await fetch(url, inputData);
       if (!response.ok) throw new Error("API is broken!");
       const data = await response.json();
+      // TODO: Rank colors acc to relative luminance
+      console.log(data.result[0]); // returns [23,23,23]
+      
+      const lumArr = data.result.map((arr)=> relativeLuminance(partialLuminance(arr)));
+
+      const colorInfo =[
+        { [lumArr[0]]: rgbToHex(data.result[0])},
+        {
+          [lumArr[1]]: rgbToHex(data.result[1])
+        },
+        {
+          [lumArr[2]]: rgbToHex(data.result[2])
+        },
+        {
+          [lumArr[3]]: rgbToHex(data.result[3])
+        },
+        {
+          [lumArr[4]]: rgbToHex(data.result[4])
+        }
+      ]
+      
+      // get luminance of each color
+      // get arr of object keys
+      // arr.sort((a, b) => a-b);
+      // for each key, set new object [key] = old object [key]
+      
+
       this.setState({
         colorDarkShades: rgbToHex(data.result[0]),
         colorDarkAccent: rgbToHex(data.result[1]),
@@ -160,66 +203,82 @@ const NavBar = () => {
 };
 
 const ShowCase = () => {
-  return(
+  return (
     <div className="showCase">
       <div className="showCaseText">
-        <h1>
-          HELPING OUR CLIENTS ACHIEVE SUCCESS
-        </h1>
-        <p>
-          We make high-level design affordable for everyone
-        </p>
-        <div className='showCaseButtons'>
+        <h1>HELPING OUR CLIENTS ACHIEVE SUCCESS</h1>
+        <p>We make high-level design affordable for everyone</p>
+        <div className="showCaseButtons">
           <Button className="button hiEmphasis" text="Get Started" link="#0" />
           <Button className="button midEmphasis" text="Contact Us" link="#0" />
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const Button = ({ className, text, link }) => {
   return (
-      <a href={link} className={className}>{text}</a>
-  )
-}
+    <a href={link} className={className}>
+      {text}
+    </a>
+  );
+};
 
 const CardsContainer = () => {
   return (
     <div className="cardsContainer">
-      <h2>WHAT WE OFFER</h2>  
-      <div className='card'>
-        <i id='iconBranding' className='icon'></i>
+      <h2>WHAT WE OFFER</h2>
+      <div className="card">
+        <i id="iconBranding" className="icon" />
         <h3>Branding</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus
+          magni{" "}
+        </p>
       </div>
-      <div className='card card1'>
-        <i id='iconWebDesign' className='icon'></i>
+      <div className="card card1">
+        <i id="iconWebDesign" className="icon" />
         <h3>Web Design</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus
+          magni{" "}
+        </p>
       </div>
-      <div className='card card2'>
-        <i id='iconUxUi' className='icon'></i>
+      <div className="card card2">
+        <i id="iconUxUi" className="icon" />
         <h3>UX/UI</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus
+          magni{" "}
+        </p>
       </div>
-      <div className='card card3'>
-        <i id='iconSEO' className='icon'></i>
+      <div className="card card3">
+        <i id="iconSEO" className="icon" />
         <h3>SEO</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus
+          magni{" "}
+        </p>
       </div>
-      <div className='card card4'>
-        <i id='iconPhotography' className='icon'></i>
+      <div className="card card4">
+        <i id="iconPhotography" className="icon" />
         <h3>Photography</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus
+          magni{" "}
+        </p>
       </div>
-      <div className='card card5'>
-        <i id='iconMotion' className='icon'></i>
+      <div className="card card5">
+        <i id="iconMotion" className="icon" />
         <h3>Motion</h3>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus magni </p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit ducimus
+          magni{" "}
+        </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default App;

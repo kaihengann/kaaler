@@ -50,7 +50,7 @@
 
 .showCase {
   /* width: 100%; */
-  height: 50vh;
+  height: 60vh;
   background-repeat: no-repeat;
   /* background-position: center center; */
   background-size: 100% 100%;
@@ -158,7 +158,7 @@
 }
 .card p{
   font-size: 0.6rem;
-  padding: 10px 40px;
+  padding: 10px 60px;
 }
 
 .icon {
@@ -271,6 +271,9 @@
   padding: 20px 5px;
   box-shadow: inset 3px 4px 7px -10px rgba(20, 20, 20, 0.3),
     5px 8px 12px -6px rgba(0, 0, 0, 0.4);
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1;
 }
 
 .visible {
