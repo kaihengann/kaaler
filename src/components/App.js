@@ -88,39 +88,49 @@ class App extends React.Component {
       const response = await fetch(url, inputData);
       if (!response.ok) throw new Error("API is broken!");
       const data = await response.json();
-      // TODO: Rank colors acc to relative luminance
-      console.log(data.result[0]); // returns [23,23,23]
-      
-      const lumArr = data.result.map((arr)=> relativeLuminance(partialLuminance(arr)));
+      const lumArr = data.result.map(arr =>
+        relativeLuminance(partialLuminance(arr))
+      );
 
-      const colorInfo =[
-        { [lumArr[0]]: rgbToHex(data.result[0])},
-        {
-          [lumArr[1]]: rgbToHex(data.result[1])
-        },
-        {
-          [lumArr[2]]: rgbToHex(data.result[2])
-        },
-        {
-          [lumArr[3]]: rgbToHex(data.result[3])
-        },
-        {
-          [lumArr[4]]: rgbToHex(data.result[4])
-        }
-      ]
+      const lumUnsorted = {
+         [lumArr[0]]: rgbToHex(data.result[0]),
+         [lumArr[1]]: rgbToHex(data.result[1]),
+         [lumArr[2]]: rgbToHex(data.result[2]),
+         [lumArr[3]]: rgbToHex(data.result[3]),
+         [lumArr[4]]: rgbToHex(data.result[4])
+      };
+
+      // console.log(lumUnsorted);
+      const lumArrSorted = lumArr.sort((a, b) => (a - b)).map((key) => key.toString())
+      console.log(lumArrSorted);
+      // convert lumUnsorted from array of object to an object or Map
       
+      const colorSorted = lumArrSorted.map((key) => {
+        // const keyString = key.toString();
+        // console.log(index, key, lumUnsorted[index]);
+        return lumUnsorted[key];
+      });
+      console.log(colorSorted);
+      
+      // console.log(lumUnsorted);
+      // lumArrSorted
+      // console.log(colorSorted);
+      // .sort((a, b) => (a - b))
+      // .forEach((key) => colorInfoSorted[key] = colorInfoUnsorted[key])
+      
+      
+
       // get luminance of each color
       // get arr of object keys
       // arr.sort((a, b) => a-b);
       // for each key, set new object [key] = old object [key]
-      
 
       this.setState({
-        colorDarkShades: rgbToHex(data.result[0]),
-        colorDarkAccent: rgbToHex(data.result[1]),
-        colorMain: rgbToHex(data.result[2]),
-        colorLightAccent: rgbToHex(data.result[3]),
-        colorLightShades: rgbToHex(data.result[4])
+        colorLightShades: colorSorted[0],
+        colorLightAccent: colorSorted[1],
+        colorMain: colorSorted[2],
+        colorDarkAccent: colorSorted[3],
+        colorDarkShades: colorSorted[4]
       });
     } catch (err) {
       console.log(err);
