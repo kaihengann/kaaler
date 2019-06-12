@@ -24,22 +24,27 @@ class App extends React.Component {
   }
   // TODO: logic to change form value after new colors are generated while form is visible
   handleClick = e => {
+    // Get event target color
     const color = window
       .getComputedStyle(e.target)
       .getPropertyValue("background-color");
+    // Convert color to hex code
     const rgbArr = processRgb(color);
-    if (rgbArr.join(", ") === this.state.selectedColorRgb) {
+    // If color picker is visible and clicked color is the same, hide color picker
+    if (rgbArr.join(", ") === this.state.selectedColorRgb) { 
       this.setState({
         isColorClicked: !this.state.isColorClicked
       });
-    } else if (!this.state.isColorClicked) {
+    // If color picker is hidden, show color picker and display color code of selected color
+    } else if (!this.state.isColorClicked) { 
       this.setState({
         selectedColorHex: rgbToHex(rgbArr),
         selectedColorRgb: rgbArr.join(", "),
         isColorClicked: !this.state.isColorClicked
       });
+    // If color picker is visible and a different color is picked, display new color code only
     } else {
-      this.setState({
+      this.setState({ 
         selectedColorHex: rgbToHex(rgbArr),
         selectedColorRgb: rgbArr.join(", ")
       });
@@ -62,10 +67,11 @@ class App extends React.Component {
       const response = await fetch(url, inputData);
       if (!response.ok) throw new Error("API is broken!");
       const data = await response.json();
+      // Convert API data to an array of luminance for each color
       const lumArr = data.result.map(arr =>
         relativeLuminance(partialLuminance(arr))
       );
-
+      // Associate luminance with their respective color code
       const lumUnsorted = {
         [lumArr[0]]: rgbToHex(data.result[0]),
         [lumArr[1]]: rgbToHex(data.result[1]),
@@ -73,11 +79,11 @@ class App extends React.Component {
         [lumArr[3]]: rgbToHex(data.result[3]),
         [lumArr[4]]: rgbToHex(data.result[4])
       };
-
+      // Sort luminance in ascending order
       const lumArrSorted = lumArr
         .sort((a, b) => a - b)
         .map(key => key.toString());
-
+      // Create new array of colors in order of luminance
       const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
 
       this.setState({
@@ -111,8 +117,12 @@ class App extends React.Component {
           colorClickedRgb={this.state.selectedColorRgb}
           onChange={this.state.handleChange}
           isClicked={this.state.isColorClicked}
+          onClick={this.handleClick}
         />
-        <Toolbar onClick={this.handleClick} onGenerate={this.handleGenerate} />
+        <Toolbar
+          onClick={this.handleClick}
+          onGenerate={this.handleGenerate}
+        />
       </div>
     );
   }

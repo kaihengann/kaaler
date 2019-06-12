@@ -28,7 +28,6 @@
     5px 8px 12px -6px rgba(0, 0, 0, 0.4);
   position: fixed;
   bottom: 30px;
-  /* centers toolbar */
   left: 50%;
   transform: translate(-50%);
   z-index: 1;
