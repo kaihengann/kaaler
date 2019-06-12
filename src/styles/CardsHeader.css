@@ -1,0 +1,16 @@
+.cardsHeader {
+  display: grid;
+  line-height: 60px;
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 700;
+  background-color: white;
+  letter-spacing: 3px;
+  width: 300px;
+  margin: auto;
+}

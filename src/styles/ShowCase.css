@@ -1,0 +1,49 @@
+.showCase {
+  /* width: 100%; */
+  height: 40vh;
+  background-repeat: no-repeat;
+  /* background-position: center center; */
+  background-size: 100% 100%;
+  /* background-attachment: fixed; */
+  /* background-position: center center; */
+  background: url("https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80");
+}
+
+.showCaseButtons {
+  margin-top: 35px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.hiEmphasis {
+  background-color: var(--colorMain);
+  color: white;
+}
+
+.midEmphasis {
+  border: 2px solid var(--colorMain);
+  color: var(--colorMain);
+}
+
+.showCaseText {
+  position: relative;
+  text-align: center;
+  left: auto;
+  top: 120px;
+  z-index: 1;
+}
+
+.showCaseText h1 {
+  font-weight: 800;
+  font-size: 2.2rem;
+  margin: 10px 50px;
+  letter-spacing: 3px;
+}
+
+.showCaseText p {
+  font-family: "Raleway";
+  margin: 15px 50px;
+  opacity: 0.5;
+}

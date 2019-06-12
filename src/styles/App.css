@@ -1,0 +1,9 @@
+#app {
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  background-color: var(--colorDarkAccent);
+  transition: background 1s ease, color 1s ease;
+}

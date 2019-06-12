@@ -1,0 +1,10 @@
+.cardsContainer {
+  display: grid;
+  color: black;
+  /* width: 150px; */
+  z-index: 1;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 0.8fr, 1fr, 1fr, 1fr;
+  margin: 50px 50px;
+  grid-gap: 20px;
+}

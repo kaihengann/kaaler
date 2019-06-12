@@ -1,0 +1,18 @@
+.button {
+  width: 140px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Raleway";
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  margin: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  line-height: 20px;
+  z-index: 1;
+  text-decoration: none;
+  -webkit-appearance: none;
+  box-shadow: 5px 8px 10px -10px rgba(0, 0, 0, 0.9);
+}

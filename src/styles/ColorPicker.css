@@ -1,0 +1,57 @@
+.colorPicker {
+  position: fixed;
+  bottom: 180px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(61, 61, 61);
+  border-radius: 10px;
+  padding: 20px 5px;
+  box-shadow: inset 3px 4px 7px -10px rgba(20, 20, 20, 0.3),
+    5px 8px 12px -6px rgba(0, 0, 0, 0.4);
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1;
+}
+
+.visible {
+  opacity: 1;
+  transition: opacity 0.4s ease 0s;
+}
+.hidden {
+  opacity: 0;
+  transition: opacity 0.4s ease 0s;
+}
+
+.colorPickerText {
+  font-size: 0.5rem;
+  color: rgba(233, 233, 233, 0.8);
+  text-align: left;
+  padding: 10px 10px 0px 5px;
+  z-index: 1;
+}
+
+input {
+  /* To fix weird rendering on mobile  */
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+.colorPickerInput {
+  margin: 0px 5px;
+  padding: 0 5px;
+  width: auto;
+  max-width: 100px;
+  height: 20px;
+  border-style: none;
+  border: 0;
+  color: white;
+  outline: none;
+  background-color: inherit;
+  border-bottom: 1px solid rgba(233, 233, 233, 0.9);
+  text-align: center;
+  font-size: 0.8rem;
+}
+
+.colorPicker:hover {
+  visibility: visible;
+}

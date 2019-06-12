@@ -1,4 +1,4 @@
-const partialLuminance = arr => {
+export const partialLuminance = arr => {
   const newArr = arr.map(value => {
     const colorSRGB = value / 255;
     if (colorSRGB <= 0.03928) {
@@ -9,4 +9,7 @@ const partialLuminance = arr => {
   });
   return newArr;
 };
-const result = partialLuminance([1, 1, 1])
+
+export const relativeLuminance = arr => {
+  return 0.2126 * arr[0] + 0.7152 * arr[1] + 0.0722 * arr[2];
+};

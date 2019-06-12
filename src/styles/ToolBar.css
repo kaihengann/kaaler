@@ -1,0 +1,56 @@
+.colorButton {
+  width: 50px;
+  height: 50px;
+  background-color: none;
+  border-radius: 50%;
+  border: 2px solid rgb(240, 240, 240);
+  margin: 5px;
+  color: black;
+  font-size: 1rem;
+  box-shadow: inset 3px 4px 7px -2px rgba(20, 20, 20, 0.7);
+  transition: background 1s ease, color 1s ease, transform 0.3s,
+    box-shadow 0.4s ease-in-out 0s;
+}
+
+.colorButton:hover,
+.colorButton:active {
+  transform: scale(1.005) translate(0, -2px);
+  box-shadow: inset 3px 4px 7px -2px rgba(20, 20, 20, 0.3),
+    5px 8px 10px -10px rgba(0, 0, 0, 0.8);
+}
+
+.toolBar {
+  background-color: rgb(61, 61, 61);
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  box-shadow: inset 3px 4px 7px -10px rgba(20, 20, 20, 0.3),
+    5px 8px 12px -6px rgba(0, 0, 0, 0.4);
+  position: fixed;
+  bottom: 30px;
+  /* centers toolbar */
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 1;
+  /* visibility: hidden; */
+}
+
+.colorButton:nth-child(1) {
+  background-color: var(--colorDarkShades);
+}
+
+.colorButton:nth-child(2) {
+  background-color: var(--colorDarkAccent);
+}
+
+.colorButton:nth-child(3) {
+  background-color: var(--colorMain);
+}
+
+.colorButton:nth-child(4) {
+  background-color: var(--colorLightAccent);
+}
+
+.colorButton:nth-child(5) {
+  background-color: var(--colorLightShades);
+}
