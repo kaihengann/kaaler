@@ -1,12 +1,12 @@
 import React from "react";
 import "../styles/App.css";
-import { rgbToHex, processRgb } from "./rgbToHex";
 import Toolbar from "./ToolBar";
-import { relativeLuminance, partialLuminance } from "./luminance";
 import ColorPicker from "./ColorPicker";
 import NavBar from "./NavBar";
 import ShowCase from "./ShowCase";
 import CardsContainer from "./CardsContainer";
+import { rgbToHex, processRgb } from "../rgbToHex";
+import { relativeLuminance, partialLuminance } from "../luminance";
 
 class App extends React.Component {
   constructor(props) {
