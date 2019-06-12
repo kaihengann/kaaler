@@ -12,13 +12,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      colors: [
-        { "#e8e9d": false },
-        { "#f7dbbc": false },
-        { "#e2a097": false },
-        { "#41202e": false },
-        { "#22223d": false }
-      ],
+      colorDark1: "#1b3046",
+      colorDark2: "#4f627e",
+      colorMain: "#79a9b4",
+      colorLight2: "#d2d1c0",
+      colorLight1: "#cccccd" ,
       selectedColorHex: "",
       selectedColorRgb: "",
       isColorClicked: false
@@ -39,7 +37,7 @@ class App extends React.Component {
       this.setState({
         isColorClicked: !this.state.isColorClicked
       });
-      // If color picker is hidden, show color picker and display color code of selected color
+    // If color picker is hidden, show color picker and display color code of selected color
     } else if (!this.state.isColorClicked) {
       this.setState({
         selectedColorHex: colorHex,
@@ -54,15 +52,6 @@ class App extends React.Component {
       });
     }
   };
-  //How to store individual clicked state for colors
-  // colors: [
- //   { '#903834': false'}
-  //]
-  // if color hex 'in' this.state.colors
-  // this.setState({colors[hex]: !this.state.colors[hex]})
-  // possible prob= is hex a string?
-
-
 
   handleGenerate = async () => {
     try {
@@ -96,17 +85,15 @@ class App extends React.Component {
       const lumArrSorted = lumArr
         .sort((a, b) => a - b)
         .map(key => key.toString());
-      // Create new array of colors in order of luminance
-      const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
+        // Create new array of colors in order of luminance
+        const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
+        console.log(lumArrSorted);
       this.setState({
-        // Note: square bracket notation used to define var key
-        colors: [
-          { [colorSorted[0]]: false },
-          { [colorSorted[1]]: false },
-          { [colorSorted[2]]: false },
-          { [colorSorted[3]]: false },
-          { [colorSorted[4]]: false }
-        ]
+        colorDark1: colorSorted[0],
+        colorDark2: colorSorted[1],
+        colorMain: colorSorted[2],
+        colorLight2: colorSorted[3],
+        colorLight1: colorSorted[4]
       });
     } catch (err) {
       console.log(err);
@@ -116,11 +103,11 @@ class App extends React.Component {
   render() {
     // Get first key of object in colors array
     const appStyle = {
-      "--colorLight1": `${Object.keys(this.state.colors[0])[0]}`,
-      "--colorLight2": `${Object.keys(this.state.colors[1])[0]}`,
-      "--colorMain": `${Object.keys(this.state.colors[2])[0]}`,
-      "--colorDark2": `${Object.keys(this.state.colors[3])[0]}`,
-      "--colorDark1": `${Object.keys(this.state.colors[4])[0]}`
+      "--colorLight1": this.state.colorLight1,
+      "--colorLight2": this.state.colorLight2,
+      "--colorMain": this.state.colorMain,
+      "--colorDark2": this.state.colorDark2,
+      "--colorDark1": this.state.colorDark1
     };
 
     return (
