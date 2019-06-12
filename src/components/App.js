@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/App.css";
-import Toolbar from "./ToolBar";
+import ToolBar from "./ToolBar";
 import ColorPicker from "./ColorPicker";
 import NavBar from "./NavBar";
 import ShowCase from "./ShowCase";
@@ -63,9 +63,10 @@ class App extends React.Component {
   // possible prob= is hex a string?
 
 
+
   handleGenerate = async () => {
     try {
-      const proxy = "https://cors-anywhere.herokuapp.com/";
+      const proxy = "https://polar-beach-54822.herokuapp.com/";
       const api = "http://colormind.io/api/";
       const url = proxy + api;
       const inputData = {
@@ -130,11 +131,10 @@ class App extends React.Component {
         <ColorPicker
           colorClickedHex={this.state.selectedColorHex}
           colorClickedRgb={this.state.selectedColorRgb}
-          onChange={this.state.handleChange}
           isClicked={this.state.isColorClicked}
           onClick={this.handleClick}
         />
-        <Toolbar onClick={this.handleClick} onGenerate={this.handleGenerate} />
+        <ToolBar onClick={this.handleClick} onGenerate={this.handleGenerate} />
       </div>
     );
   }
