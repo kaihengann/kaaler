@@ -32,23 +32,25 @@ class App extends React.Component {
       .getPropertyValue("background-color");
     // Convert color to hex code
     const rgbArr = processRgb(color);
+    const colorHex = rgbToHex(rgbArr);
+    const colorRgb = rgbArr.join(", ")
     // If color picker is visible and clicked color is the same, hide color picker
-    if (rgbArr.join(", ") === this.state.selectedColorRgb) {
+    if (colorRgb === this.state.selectedColorRgb) {
       this.setState({
         isColorClicked: !this.state.isColorClicked
       });
       // If color picker is hidden, show color picker and display color code of selected color
     } else if (!this.state.isColorClicked) {
       this.setState({
-        selectedColorHex: rgbToHex(rgbArr),
-        selectedColorRgb: rgbArr.join(", "),
+        selectedColorHex: colorHex,
+        selectedColorRgb: colorRgb,
         isColorClicked: !this.state.isColorClicked
       });
       // If color picker is visible and a different color is picked, display new color code only
     } else {
       this.setState({
-        selectedColorHex: rgbToHex(rgbArr),
-        selectedColorRgb: rgbArr.join(", ")
+        selectedColorHex: colorHex,
+        selectedColorRgb: colorRgb
       });
     }
   };
