@@ -12,11 +12,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      colorDarkShades: "#e8e9d4",
-      colorDarkAccent: "#f7dbbc",
-      colorMain: "#e2a097",
-      colorLightAccent: "#41202e",
-      colorLightShades: "#22223d",
+      colors: [
+        { colorLight1: "#e8e9d4", isClicked: false },
+        { colorLight2: "#f7dbbc", isClicked: false },
+        { colorMain: "#e2a097", isClicked: false },
+        { colorDark2: "#41202e", isClicked: false },
+        { colorDark1: "#22223d", isClicked: false }
+      ],
       selectedColorHex: "",
       selectedColorRgb: "",
       isColorClicked: false
@@ -31,20 +33,20 @@ class App extends React.Component {
     // Convert color to hex code
     const rgbArr = processRgb(color);
     // If color picker is visible and clicked color is the same, hide color picker
-    if (rgbArr.join(", ") === this.state.selectedColorRgb) { 
+    if (rgbArr.join(", ") === this.state.selectedColorRgb) {
       this.setState({
         isColorClicked: !this.state.isColorClicked
       });
-    // If color picker is hidden, show color picker and display color code of selected color
-    } else if (!this.state.isColorClicked) { 
+      // If color picker is hidden, show color picker and display color code of selected color
+    } else if (!this.state.isColorClicked) {
       this.setState({
         selectedColorHex: rgbToHex(rgbArr),
         selectedColorRgb: rgbArr.join(", "),
         isColorClicked: !this.state.isColorClicked
       });
-    // If color picker is visible and a different color is picked, display new color code only
+      // If color picker is visible and a different color is picked, display new color code only
     } else {
-      this.setState({ 
+      this.setState({
         selectedColorHex: rgbToHex(rgbArr),
         selectedColorRgb: rgbArr.join(", ")
       });
@@ -85,13 +87,14 @@ class App extends React.Component {
         .map(key => key.toString());
       // Create new array of colors in order of luminance
       const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
-
       this.setState({
-        colorLightShades: colorSorted[0],
-        colorLightAccent: colorSorted[1],
-        colorMain: colorSorted[2],
-        colorDarkAccent: colorSorted[3],
-        colorDarkShades: colorSorted[4]
+        colors: [
+          { colorLight1: colorSorted[0], isClicked: false },
+          { colorLight2: colorSorted[1], isClicked: false },
+          { colorMain: colorSorted[2], isClicked: false },
+          { colorDark2: colorSorted[3], isClicked: false },
+          { colorDark1: colorSorted[4], isClicked: false }
+        ]
       });
     } catch (err) {
       console.log(err);
@@ -100,11 +103,11 @@ class App extends React.Component {
 
   render() {
     const appStyle = {
-      "--colorDarkShades": `${this.state.colorDarkShades}`,
-      "--colorDarkAccent": `${this.state.colorDarkAccent}`,
-      "--colorMain": `${this.state.colorMain}`,
-      "--colorLightAccent": `${this.state.colorLightAccent}`,
-      "--colorLightShades": `${this.state.colorLightShades}`
+      "--colorLight1": `${this.state.colors[0].colorLight1}`,
+      "--colorLight2": `${this.state.colors[1].colorLight2}`,
+      "--colorMain": `${this.state.colors[2].colorMain}`,
+      "--colorDark2": `${this.state.colors[3].colorDark2}`,
+      "--colorDark1": `${this.state.colors[4].colorDark1}`
     };
 
     return (
@@ -119,10 +122,7 @@ class App extends React.Component {
           isClicked={this.state.isColorClicked}
           onClick={this.handleClick}
         />
-        <Toolbar
-          onClick={this.handleClick}
-          onGenerate={this.handleGenerate}
-        />
+        <Toolbar onClick={this.handleClick} onGenerate={this.handleGenerate} />
       </div>
     );
   }

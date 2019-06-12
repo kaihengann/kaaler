@@ -35,11 +35,11 @@
 }
 
 .colorButton:nth-child(1) {
-  background-color: var(--colorDarkShades);
+  background-color: var(--colorLight1);
 }
 
 .colorButton:nth-child(2) {
-  background-color: var(--colorDarkAccent);
+  background-color: var(--colorLight2);
 }
 
 .colorButton:nth-child(3) {
@@ -47,9 +47,9 @@
 }
 
 .colorButton:nth-child(4) {
-  background-color: var(--colorLightAccent);
+  background-color: var(--colorDark1);
 }
 
 .colorButton:nth-child(5) {
-  background-color: var(--colorLightShades);
+  background-color: var(--colorDark2);
 }
