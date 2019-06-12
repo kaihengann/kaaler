@@ -111,6 +111,7 @@ class App extends React.Component {
   };
 
   render() {
+    // Get first key of object in colors array
     const appStyle = {
       "--colorLight1": `${Object.keys(this.state.colors[0])[0]}`,
       "--colorLight2": `${Object.keys(this.state.colors[1])[0]}`,
