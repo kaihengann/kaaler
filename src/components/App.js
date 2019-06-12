@@ -13,11 +13,11 @@ class App extends React.Component {
     super(props);
     this.state = {
       colors: [
-        { colorLight1: "#e8e9d4", isClicked: false },
-        { colorLight2: "#f7dbbc", isClicked: false },
-        { colorMain: "#e2a097", isClicked: false },
-        { colorDark2: "#41202e", isClicked: false },
-        { colorDark1: "#22223d", isClicked: false }
+        { "#e8e9d": false },
+        { "#f7dbbc": false },
+        { "#e2a097": false },
+        { "#41202e": false },
+        { "#22223d": false }
       ],
       selectedColorHex: "",
       selectedColorRgb: "",
@@ -52,6 +52,14 @@ class App extends React.Component {
       });
     }
   };
+  //How to store individual clicked state for colors
+  // colors: [
+ //   { '#903834': false'}
+  //]
+  // if color hex 'in' this.state.colors
+  // this.setState({colors[hex]: !this.state.colors[hex]})
+  // possible prob= is hex a string?
+
 
   handleGenerate = async () => {
     try {
@@ -88,12 +96,13 @@ class App extends React.Component {
       // Create new array of colors in order of luminance
       const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
       this.setState({
+        // Note: square bracket notation used to define var key
         colors: [
-          { colorLight1: colorSorted[0], isClicked: false },
-          { colorLight2: colorSorted[1], isClicked: false },
-          { colorMain: colorSorted[2], isClicked: false },
-          { colorDark2: colorSorted[3], isClicked: false },
-          { colorDark1: colorSorted[4], isClicked: false }
+          { [colorSorted[0]]: false },
+          { [colorSorted[1]]: false },
+          { [colorSorted[2]]: false },
+          { [colorSorted[3]]: false },
+          { [colorSorted[4]]: false }
         ]
       });
     } catch (err) {
@@ -103,11 +112,11 @@ class App extends React.Component {
 
   render() {
     const appStyle = {
-      "--colorLight1": `${this.state.colors[0].colorLight1}`,
-      "--colorLight2": `${this.state.colors[1].colorLight2}`,
-      "--colorMain": `${this.state.colors[2].colorMain}`,
-      "--colorDark2": `${this.state.colors[3].colorDark2}`,
-      "--colorDark1": `${this.state.colors[4].colorDark1}`
+      "--colorLight1": `${Object.keys(this.state.colors[0])[0]}`,
+      "--colorLight2": `${Object.keys(this.state.colors[1])[0]}`,
+      "--colorMain": `${Object.keys(this.state.colors[2])[0]}`,
+      "--colorDark2": `${Object.keys(this.state.colors[3])[0]}`,
+      "--colorDark1": `${Object.keys(this.state.colors[4])[0]}`
     };
 
     return (

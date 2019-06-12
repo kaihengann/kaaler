@@ -57,5 +57,3 @@ const PaletteColor = ({ color, onClick }) => {
     />
   );
 };
-
-//`background:${color}`
