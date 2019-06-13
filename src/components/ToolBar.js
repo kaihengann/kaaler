@@ -3,7 +3,6 @@ import GenerateButton from "./GenerateButton";
 import "../styles/ToolBar.css";
 
 const ToolBar = ({ colors, onClick, onGenerate, selectedButton }) => {
-  console.log(selectedButton);
   
   const toolBarColorButtons = colors.map(({ id, colorHex, colorRgb }) => {
     return (
@@ -18,7 +17,6 @@ const ToolBar = ({ colors, onClick, onGenerate, selectedButton }) => {
       />
       );
     });
-    console.log(selectedButton);
   return (
     <div className="toolBar">
       {toolBarColorButtons}

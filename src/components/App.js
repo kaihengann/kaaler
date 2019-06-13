@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       toolBarColors: [
-        { id: 0, colorHex: "#cccccd", colorRgb: "204, 204, 205"},
+        { id: 0, colorHex: "#cccccd", colorRgb: "204, 204, 205" },
         { id: 1, colorHex: "#d2d1c0", colorRgb: "210, 209, 192" },
         { id: 2, colorHex: "#79a9b4", colorRgb: "121, 169, 180" },
         { id: 3, colorHex: "#4f627e", colorRgb: "79, 98, 126" },
@@ -40,7 +40,7 @@ class App extends React.Component {
     // const colorRgb = rgbArr.join(", ");
 
     // If color picker is visible and clicked color is the same, hide color picker
-    if (colorHex === this.state.selectedColorHex) {
+    if (colorHex === this.state.selectedColorHex && this.state.isColorClicked) {
       this.setState({
         isColorClicked: !this.state.isColorClicked,
         selectedButton: null
@@ -61,8 +61,6 @@ class App extends React.Component {
         selectedButton: id
       });
     }
-    
-    
   };
 
   handleGenerate = async () => {
@@ -87,30 +85,49 @@ class App extends React.Component {
       );
       // Associate luminance with their respective color code
       const lumUnsorted = {
-         [lumArr[0]]: data.result[0],
-         [lumArr[1]]: data.result[1],
-         [lumArr[2]]: data.result[2],
-         [lumArr[3]]: data.result[3],
-         [lumArr[4]]: data.result[4]
+        [lumArr[0]]: data.result[0],
+        [lumArr[1]]: data.result[1],
+        [lumArr[2]]: data.result[2],
+        [lumArr[3]]: data.result[3],
+        [lumArr[4]]: data.result[4]
       };
-      console.log(data.result[0])
+      console.log(data.result[0]);
       // Sort luminance in descending order
       const lumArrSorted = lumArr
         .sort((a, b) => b - a)
         .map(key => key.toString());
       // Create new array of colors in order of luminance
       const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
-     
+
       this.setState({
         toolBarColors: [
-          { id: 0, colorHex: rgbToHex(colorSorted[0]), colorRgb: processRgbArr(colorSorted[0]) },
-          { id: 1, colorHex: rgbToHex(colorSorted[1]), colorRgb: processRgbArr(colorSorted[1]) },
-          { id: 2, colorHex: rgbToHex(colorSorted[2]), colorRgb: processRgbArr(colorSorted[2]) },
-          { id: 3, colorHex: rgbToHex(colorSorted[3]), colorRgb: processRgbArr(colorSorted[3]) },
-          { id: 4, colorHex: rgbToHex(colorSorted[4]), colorRgb: processRgbArr(colorSorted[4]) }
+          {
+            id: 0,
+            colorHex: rgbToHex(colorSorted[0]),
+            colorRgb: processRgbArr(colorSorted[0])
+          },
+          {
+            id: 1,
+            colorHex: rgbToHex(colorSorted[1]),
+            colorRgb: processRgbArr(colorSorted[1])
+          },
+          {
+            id: 2,
+            colorHex: rgbToHex(colorSorted[2]),
+            colorRgb: processRgbArr(colorSorted[2])
+          },
+          {
+            id: 3,
+            colorHex: rgbToHex(colorSorted[3]),
+            colorRgb: processRgbArr(colorSorted[3])
+          },
+          {
+            id: 4,
+            colorHex: rgbToHex(colorSorted[4]),
+            colorRgb: processRgbArr(colorSorted[4])
+          }
         ]
       });
-      console.log(this.state.toolBarColors);
     } catch (err) {
       console.log(err);
     }
@@ -136,7 +153,12 @@ class App extends React.Component {
           isClicked={this.state.isColorClicked}
           onClick={this.handleClick}
         />
-        <ToolBar colors={this.state.toolBarColors} onClick={this.handleClick} onGenerate={this.handleGenerate} selectedButton={this.selectedButton} />
+        <ToolBar
+          colors={this.state.toolBarColors}
+          onClick={this.handleClick}
+          onGenerate={this.handleGenerate}
+          selectedButton={this.state.selectedButton}
+        />
       </div>
     );
   }
