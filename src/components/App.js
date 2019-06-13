@@ -12,14 +12,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      colorDark1: "#1b3046",
-      colorDark2: "#4f627e",
-      colorMain: "#79a9b4",
-      colorLight2: "#d2d1c0",
-      colorLight1: "#cccccd" ,
+      toolBarColors: [
+        { id: 0, color: "#cccccd" },
+        { id: 1, color: "#d2d1c0" },
+        { id: 2, color: "#79a9b4" },
+        { id: 3, color: "#4f627e" },
+        { id: 4, color: "#1b3046" }
+      ],
       selectedColorHex: "",
       selectedColorRgb: "",
-      isColorClicked: false
+      isColorClicked: false,
+      selectedButton: null
     };
   }
   // TODO: logic to change form value after new colors are generated while form is visible
@@ -31,13 +34,13 @@ class App extends React.Component {
     // Convert color to hex code
     const rgbArr = processRgb(color);
     const colorHex = rgbToHex(rgbArr);
-    const colorRgb = rgbArr.join(", ")
+    const colorRgb = rgbArr.join(", ");
     // If color picker is visible and clicked color is the same, hide color picker
     if (colorRgb === this.state.selectedColorRgb) {
       this.setState({
         isColorClicked: !this.state.isColorClicked
       });
-    // If color picker is hidden, show color picker and display color code of selected color
+      // If color picker is hidden, show color picker and display color code of selected color
     } else if (!this.state.isColorClicked) {
       this.setState({
         selectedColorHex: colorHex,
@@ -85,15 +88,17 @@ class App extends React.Component {
       const lumArrSorted = lumArr
         .sort((a, b) => a - b)
         .map(key => key.toString());
-        // Create new array of colors in order of luminance
-        const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
-        console.log(lumArrSorted);
+      // Create new array of colors in order of luminance
+      const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
+      console.log(lumArrSorted);
       this.setState({
-        colorDark1: colorSorted[0],
-        colorDark2: colorSorted[1],
-        colorMain: colorSorted[2],
-        colorLight2: colorSorted[3],
-        colorLight1: colorSorted[4]
+        toolBarColors: [
+          { id: 0, color: colorSorted[4] },
+          { id: 1, color: colorSorted[3] },
+          { id: 2, color: colorSorted[2] },
+          { id: 3, color: colorSorted[1] },
+          { id: 4, color: colorSorted[0] }
+        ]
       });
     } catch (err) {
       console.log(err);
@@ -103,11 +108,11 @@ class App extends React.Component {
   render() {
     // Get first key of object in colors array
     const appStyle = {
-      "--colorLight1": this.state.colorLight1,
-      "--colorLight2": this.state.colorLight2,
-      "--colorMain": this.state.colorMain,
-      "--colorDark2": this.state.colorDark2,
-      "--colorDark1": this.state.colorDark1
+      "--colorLight1": this.state.toolBarColors[0].color,
+      "--colorLight2": this.state.toolBarColors[1].color,
+      "--colorMain": this.state.toolBarColors[2].color,
+      "--colorDark2": this.state.toolBarColors[3].color,
+      "--colorDark1": this.state.toolBarColors[4].color
     };
 
     return (
@@ -121,7 +126,7 @@ class App extends React.Component {
           isClicked={this.state.isColorClicked}
           onClick={this.handleClick}
         />
-        <ToolBar onClick={this.handleClick} onGenerate={this.handleGenerate} />
+        <ToolBar colors={this.state.toolBarColors} onClick={this.handleClick} onGenerate={this.handleGenerate} />
       </div>
     );
   }

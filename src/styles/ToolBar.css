@@ -1,4 +1,4 @@
-.colorButton {
+.toolBarColorButton {
   width: 50px;
   height: 50px;
   background-color: none;
@@ -12,8 +12,8 @@
     box-shadow 0.4s ease-in-out 0s;
 }
 
-.colorButton:hover,
-.colorButton:active {
+.toolBarColorButton:hover,
+.toolBarColorButton:active {
   transform: scale(1.005) translate(0, -2px);
   box-shadow: inset 3px 4px 7px -2px rgba(20, 20, 20, 0.3),
     5px 8px 10px -10px rgba(0, 0, 0, 0.8);
@@ -34,22 +34,27 @@
   /* visibility: hidden; */
 }
 
-.colorButton:nth-child(1) {
+.toolBarColorButton:nth-child(1) {
   background-color: var(--colorLight1);
 }
 
-.colorButton:nth-child(2) {
+.toolBarColorButton:nth-child(2) {
   background-color: var(--colorLight2);
 }
 
-.colorButton:nth-child(3) {
+.toolBarColorButton:nth-child(3) {
   background-color: var(--colorMain);
 }
 
-.colorButton:nth-child(4) {
+.toolBarColorButton:nth-child(4) {
   background-color: var(--colorDark2);
 }
 
-.colorButton:nth-child(5) {
+.toolBarColorButton:nth-child(5) {
   background-color: var(--colorDark1);
+}
+
+.selected {
+  position: relative;
+  transform: scale(1.25)
 }
