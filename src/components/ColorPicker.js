@@ -2,58 +2,50 @@ import React from "react";
 import "../styles/ColorPicker.css";
 
 const ColorPicker = ({
-  colorClickedHex,
-  colorClickedRgb,
+  colors,
+  onClick,
   isClicked,
-  onClick
+  selectedButton,
+  selectedColorHex,
+  selectedColorRgb
 }) => {
-  const paletteColorCodes = [
-    "#E94A35",
-    "#F59D00",
-    "#F5E100",
-    "#009755",
-    "#083D7A",
-    "#6EC4FD",
-    "#7935E9",
-    "#B58989",
-    "#B7B7B7",
-    "#D2B85C",
-    "#745029",
-    "#790000",
-    "#F26D7D",
-    "#6DF2B5",
-    "#ffffff",
-    "#000000"
-  ];
-
-  const paletteColors = paletteColorCodes.map(color => (
-    <PaletteColor color={color} onClick={onClick} />
-  ));
-
+  const paletteColorButtons = colors.map(({ id, colorHex, colorRgb }) => {
+    return (
+      <div
+        className={
+          selectedButton === id
+            ? "paletteColorButton selected"
+            : "paletteColorButton"
+        }
+        key={id}
+        style={{background: colorHex}}
+        onClick={() => onClick(id, colorHex, colorRgb)}
+      />
+    );
+  });
+  console.log(selectedColorHex);
+  
   return (
     <div className={isClicked ? "colorPicker visible" : "colorPicker hidden"}>
-      <div className="palette">{paletteColors}</div>
+      <div className="palette">{paletteColorButtons}</div>
       <label className="colorPickerText">Hex</label>
-      <input
-        type="text"
-        name="hexInput"
-        className="colorPickerInput"
-        value={colorClickedHex}
-      />
-      <label className="colorPickerText">RGB</label>
-      <input type="text" className="colorPickerInput" value={colorClickedRgb} />
+      <div className="inputForm">
+        <input
+          type="text"
+          name="hexInput"
+          className="colorPickerInput"
+          value={selectedColorHex}
+        />
+        <label className="colorPickerText">RGB</label>
+        <input
+          type="text"
+          name="rgbInput"
+          className="colorPickerInput"
+          value={selectedColorRgb}
+        />
+      </div>
     </div>
   );
 };
 
 export default ColorPicker;
-
-const PaletteColor = ({ color, onClick }) => {
-  return (
-    <div
-      className="paletteColor"
-      style={{ background: color }}
-      onClick={onClick}
-    />
-  );
-};
