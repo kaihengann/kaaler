@@ -15,3 +15,5 @@ export const processRgb = rgb => {
   }
   return rgb.slice(4, -1).split(", ");
 };
+
+export const processRgbArr = rgb => rgb.join(", ");
