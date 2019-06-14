@@ -41,21 +41,11 @@ class App extends React.Component {
       selectedColorRgb: "",
       isColorClicked: false,
       selectedButton: null,
-      lastToolBarColorId: null
+      lastToolBarColorId: null,
+      userPalette: ["N", "N", "N", "N", "N"]
     };
   }
-  // TODO: logic to change form value after new colors are generated while form is visible
   handleClick = (id, colorHex, colorRgb) => {
-    // REMOVE
-    // Get event target color
-    // const color = window
-    //   .getComputedStyle(e.target)
-    //   .getPropertyValue("background-color");
-    // Convert color to hex code
-    // const rgbArr = processRgb(color);
-    // const colorHex = rgbToHex(rgbArr);
-    // const colorRgb = rgbArr.join(", ");
-
     // If color picker is hidden, show color picker and display color code of selected color
     if (!this.state.isColorClicked) {
       this.setState({
@@ -81,17 +71,38 @@ class App extends React.Component {
       });
       // If color picker is visible and colorpicker is clicked
     } else if (id > 5) {
-      // Replace color of previously clicked toolbar color with selected colorpicker color
-      const transferedColor = { id: this.state.lastToolBarColorId, colorHex, colorRgb }
-      const newToolBarColors = [...this.state.toolBarColors]
+      /* Replace color of previously clicked toolbar color with selected colorpicker color */
+      // Create new object to replace old object in toolBarcolor
+      const transferedColor = {
+        id: this.state.lastToolBarColorId,
+        colorHex,
+        colorRgb
+      };
+      const newToolBarColors = [...this.state.toolBarColors];
       // id is same as index in toolBarColors
       newToolBarColors[this.state.lastToolBarColorId] = transferedColor;
-      
+
+      /* Record colors user has selected from colorpicker */
+      // Parse selected color into array
+      const userSelectedColor = colorRgb
+        .split(", ")
+        .map(number => parseInt(number, 10));
+      const newUserPalette = [...this.state.userPalette];
+
+      const indexToReplace = newUserPalette.indexOf("N");
+      console.log(!!indexToReplace);
+
+      if (indexToReplace) {
+        newUserPalette.splice(Number(indexToReplace), 1, userSelectedColor);
+      }
+      console.log(newUserPalette);
+
       this.setState({
         selectedColorHex: colorHex,
         selectedColorRgb: colorRgb,
         selectedButton: id,
-        toolBarColors: newToolBarColors
+        toolBarColors: newToolBarColors,
+        userPalette: newUserPalette
       });
     }
   };
@@ -102,12 +113,18 @@ class App extends React.Component {
       const api = "http://colormind.io/api/";
       const url = proxy + api;
       const inputData = {
-        body: '{ "model":"default"}',
+        body: `{ "model":"default"}`,
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         },
         method: "POST"
       };
+      // If user has selected color(s), insert userPalette into inputData
+      if (this.state.userPalette.length > 0) {
+        inputData.body = `{"input": ${JSON.stringify(
+          this.state.userPalette
+        )}, "model":"default" }`;
+      }
 
       const response = await fetch(url, inputData);
       if (!response.ok) throw new Error("API is broken!");
