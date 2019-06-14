@@ -81,10 +81,17 @@ class App extends React.Component {
       });
       // If color picker is visible and colorpicker is clicked
     } else if (id > 5) {
+      // Replace color of previously clicked toolbar color with selected colorpicker color
+      const transferedColor = { id: this.state.lastToolBarColorId, colorHex, colorRgb }
+      const newToolBarColors = [...this.state.toolBarColors]
+      // id is same as index in toolBarColors
+      newToolBarColors[this.state.lastToolBarColorId] = transferedColor;
+      
       this.setState({
         selectedColorHex: colorHex,
         selectedColorRgb: colorRgb,
-        selectedButton: id
+        selectedButton: id,
+        toolBarColors: newToolBarColors
       });
     }
   };
