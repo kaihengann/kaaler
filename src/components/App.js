@@ -40,7 +40,8 @@ class App extends React.Component {
       selectedColorHex: "",
       selectedColorRgb: "",
       isColorClicked: false,
-      selectedButton: null
+      selectedButton: null,
+      lastToolBarColorId: null
     };
   }
   // TODO: logic to change form value after new colors are generated while form is visible
@@ -50,28 +51,36 @@ class App extends React.Component {
     // const color = window
     //   .getComputedStyle(e.target)
     //   .getPropertyValue("background-color");
-
     // Convert color to hex code
     // const rgbArr = processRgb(color);
     // const colorHex = rgbToHex(rgbArr);
     // const colorRgb = rgbArr.join(", ");
 
-    // If color picker is visible and clicked color is the same, hide color picker
-    if (colorHex === this.state.selectedColorHex && this.state.isColorClicked) {
-      this.setState({
-        isColorClicked: !this.state.isColorClicked,
-        selectedButton: null
-      });
-      // If color picker is hidden, show color picker and display color code of selected color
-    } else if (!this.state.isColorClicked) {
+    // If color picker is hidden, show color picker and display color code of selected color
+    if (!this.state.isColorClicked) {
       this.setState({
         selectedColorHex: colorHex,
         selectedColorRgb: colorRgb,
         isColorClicked: !this.state.isColorClicked,
+        selectedButton: id,
+        lastToolBarColorId: id
+      });
+      // If color picker is visible and clicked color is the same, hide color picker
+    } else if (colorHex === this.state.selectedColorHex) {
+      this.setState({
+        isColorClicked: !this.state.isColorClicked,
+        selectedButton: null
+      });
+      // If color picker is visible and toolbar color is clicked
+    } else if (id < 5) {
+      this.setState({
+        selectedColorHex: colorHex,
+        selectedColorRgb: colorRgb,
+        lastToolBarColorId: id,
         selectedButton: id
       });
-      // If color picker is visible and a different color is picked, display new color code only
-    } else {
+      // If color picker is visible and colorpicker is clicked
+    } else if (id > 5) {
       this.setState({
         selectedColorHex: colorHex,
         selectedColorRgb: colorRgb,

@@ -4,7 +4,7 @@ import "../styles/ToolBar.css";
 
 const ToolBar = ({ colors, onClick, onGenerate, selectedButton }) => {
   
-  const toolBarColorButtons = colors.map(({ id, colorHex, colorRgb }) => {
+  const toolBarColorButtons = colors.map(({ id, colorHex, colorRgb,  }) => {
     return (
       <button
       className={
@@ -13,6 +13,7 @@ const ToolBar = ({ colors, onClick, onGenerate, selectedButton }) => {
         : "toolBarColorButton"
       }
       key={id}
+      id={id}
       onClick={() => onClick(id, colorHex, colorRgb)}
       />
       );

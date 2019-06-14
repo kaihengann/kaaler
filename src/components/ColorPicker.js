@@ -23,8 +23,7 @@ const ColorPicker = ({
       />
     );
   });
-  console.log(selectedColorHex);
-  
+
   return (
     <div className={isClicked ? "colorPicker visible" : "colorPicker hidden"}>
       <div className="palette">{paletteColorButtons}</div>
