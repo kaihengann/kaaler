@@ -88,14 +88,8 @@ class App extends React.Component {
         .split(", ")
         .map(number => parseInt(number, 10));
       const newUserPalette = [...this.state.userPalette];
-
-      const indexToReplace = newUserPalette.indexOf("N");
-      console.log(!!indexToReplace);
-
-      if (indexToReplace) {
-        newUserPalette.splice(Number(indexToReplace), 1, userSelectedColor);
-      }
-      console.log(newUserPalette);
+      const indexToReplace = this.state.lastToolBarColorId;
+      newUserPalette.splice(indexToReplace, 1, userSelectedColor);
 
       this.setState({
         selectedColorHex: colorHex,
