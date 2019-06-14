@@ -11,14 +11,14 @@ const ColorPicker = ({
 }) => {
   const paletteColorButtons = colors.map(({ id, colorHex, colorRgb }) => {
     return (
-      <div
+      <button
         className={
           selectedButton === id
             ? "paletteColorButton selected"
             : "paletteColorButton"
         }
         key={id}
-        style={{background: colorHex}}
+        style={{ background: colorHex }}
         onClick={() => onClick(id, colorHex, colorRgb)}
       />
     );

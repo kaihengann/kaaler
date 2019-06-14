@@ -37,6 +37,13 @@ class App extends React.Component {
         { id: 25, colorHex: "#ffffff", colorRgb: "255, 255, 255" },
         { id: 26, colorHex: "#000000", colorRgb: "0, 0, 0" }
       ],
+      lockStatus: [
+        { id: 0, isLocked: false },
+        { id: 1, isLocked: false },
+        { id: 2, isLocked: false },
+        { id: 3, isLocked: false },
+        { id: 4, isLocked: false }
+      ],
       selectedColorHex: "",
       selectedColorRgb: "",
       isColorClicked: false,
@@ -45,6 +52,7 @@ class App extends React.Component {
       userPalette: ["N", "N", "N", "N", "N"]
     };
   }
+
   handleClick = (id, colorHex, colorRgb) => {
     // If color picker is hidden, show color picker and display color code of selected color
     if (!this.state.isColorClicked) {
@@ -55,6 +63,7 @@ class App extends React.Component {
         selectedButton: id,
         lastToolBarColorId: id
       });
+
       // If color picker is visible and clicked color is the same, hide color picker
     } else if (colorHex === this.state.selectedColorHex) {
       this.setState({
@@ -99,6 +108,15 @@ class App extends React.Component {
         userPalette: newUserPalette
       });
     }
+  };
+
+  handleLock = (id, isLocked) => {
+    const newLockStatus = [...this.state.lockStatus];
+    const changeLock = { id, isLocked: !isLocked };
+    newLockStatus[id] = changeLock;
+    this.setState({
+      lockStatus: newLockStatus
+    });
   };
 
   handleGenerate = async () => {
@@ -200,6 +218,8 @@ class App extends React.Component {
         />
         <ToolBar
           colors={this.state.toolBarColors}
+          onLock={this.handleLock}
+          lockStatus={this.state.lockStatus}
           onClick={this.handleClick}
           onGenerate={this.handleGenerate}
           selectedButton={this.state.selectedButton}

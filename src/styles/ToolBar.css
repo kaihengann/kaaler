@@ -65,3 +65,30 @@
 .toolBarColorButton:nth-child(5) {
   background-color: var(--colorDark1);
 }
+
+.locks {
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.lockButton {
+  width:20px;
+  height:20px;
+  border:none;
+  margin: 0px 20px;
+  outline:none;
+  
+}
+
+.lockButton:hover,.lockButton:active{
+  background: url(../assets/icons/locked.svg);
+  transform: scale(1.1);
+}
+.locked {
+  background: url(../assets/icons/locked.svg);
+}
+
+.unlocked {
+  background: url(../assets/icons/unlocked.svg);
+}
