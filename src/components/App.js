@@ -1,55 +1,33 @@
 import React from "react";
 import "../styles/App.css";
-import ToolBar from "./ToolBar";
-import ColorPicker from "./ColorPicker";
 import NavBar from "./NavBar";
+import ToolBar from "./ToolBar";
 import ShowCase from "./ShowCase";
+import { rgbToHex } from "../rgbToHex";
+import ColorPicker from "./ColorPicker";
+import { dataForApi, url } from "../api";
 import CardsContainer from "./CardsContainer";
-import { rgbToHex, processRgbArr } from "../rgbToHex";
 import { relativeLuminance, partialLuminance } from "../luminance";
+import {
+  toolBarColorsDefault,
+  paletteColorsDefault,
+  lockStatusDefault,
+  userPaletteDefault
+} from "../defaultStates";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      toolBarColors: [
-        { id: 0, colorHex: "#cccccd", colorRgb: "204, 204, 205" },
-        { id: 1, colorHex: "#d2d1c0", colorRgb: "210, 209, 192" },
-        { id: 2, colorHex: "#79a9b4", colorRgb: "121, 169, 180" },
-        { id: 3, colorHex: "#4f627e", colorRgb: "79, 98, 126" },
-        { id: 4, colorHex: "#1b3046", colorRgb: "27, 48, 70" }
-      ],
-      paletteColors: [
-        { id: 11, colorHex: "#E94A35", colorRgb: "233, 74, 53" },
-        { id: 12, colorHex: "#F59D00", colorRgb: "245, 157, 0" },
-        { id: 13, colorHex: "#F5E100", colorRgb: "245, 225, 0" },
-        { id: 14, colorHex: "#009755", colorRgb: "0, 151, 85" },
-        { id: 15, colorHex: "#083D7A", colorRgb: "8, 61, 122" },
-        { id: 16, colorHex: "#6EC4FD", colorRgb: "110, 196, 253" },
-        { id: 17, colorHex: "#7935E9", colorRgb: "121, 53, 233" },
-        { id: 18, colorHex: "#B58989", colorRgb: "181, 137, 137" },
-        { id: 19, colorHex: "#B7B7B7", colorRgb: "183, 183, 183" },
-        { id: 20, colorHex: "#D2B85C", colorRgb: "210, 184, 92" },
-        { id: 21, colorHex: "#745029", colorRgb: "116, 80, 41" },
-        { id: 22, colorHex: "#790000", colorRgb: "121, 0, 0" },
-        { id: 23, colorHex: "#F26D7D", colorRgb: "242, 109, 125" },
-        { id: 24, colorHex: "#6DF2B5", colorRgb: "109, 242, 181" },
-        { id: 25, colorHex: "#ffffff", colorRgb: "255, 255, 255" },
-        { id: 26, colorHex: "#000000", colorRgb: "0, 0, 0" }
-      ],
-      lockStatus: [
-        { id: 0, isLocked: false },
-        { id: 1, isLocked: false },
-        { id: 2, isLocked: false },
-        { id: 3, isLocked: false },
-        { id: 4, isLocked: false }
-      ],
+      toolBarColors: toolBarColorsDefault,
+      paletteColors: paletteColorsDefault,
+      lockStatus: lockStatusDefault,
       selectedColorHex: "",
       selectedColorRgb: "",
       isColorClicked: false,
       selectedButton: null,
       lastToolBarColorId: null,
-      userPalette: ["N", "N", "N", "N", "N"]
+      userPalette: userPaletteDefault
     };
   }
 
@@ -115,50 +93,36 @@ class App extends React.Component {
     const newLockStatus = [...this.state.lockStatus];
     const changeLock = { id, isLocked: !isLocked };
     newLockStatus[id] = changeLock;
+
+    const indexToReplace = id;
+    const newUserPalette = [...this.state.userPalette];
     // If color is getting locked, add toolbar color to userPalette
     if (!isLocked) {
+      // Get current color of associated toolbar button
       const colorToInsert = this.state.toolBarColors[id].colorRgb
         .split(", ")
         .map(number => parseInt(number, 10));
-      const newUserPalette = [...this.state.userPalette];
-      const indexToReplace = id;
       newUserPalette.splice(indexToReplace, 1, colorToInsert);
-      this.setState({
-        lockStatus: newLockStatus,
-        userPalette: newUserPalette
-      });
       // If color is getting unlocked, remove toolbar color from userPalette
     } else {
-      const newUserPalette = [...this.state.userPalette];
-      const indexToReplace = id;
       newUserPalette.splice(indexToReplace, 1, "N");
-      this.setState({
-        lockStatus: newLockStatus,
-        userPalette: newUserPalette
-      });
     }
+    this.setState({
+      lockStatus: newLockStatus,
+      userPalette: newUserPalette
+    });
   };
 
   handleGenerate = async () => {
     try {
-      const proxy = "https://polar-beach-54822.herokuapp.com/";
-      const api = "http://colormind.io/api/";
-      const url = proxy + api;
-      const inputData = {
-        body: `{ "model":"default"}`,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        method: "POST"
-      };
       // If user has selected color(s), insert userPalette into inputData
       if (this.state.userPalette.length > 0) {
-        inputData.body = `{"input": ${JSON.stringify(
+        dataForApi.body = `{"input": ${JSON.stringify(
           this.state.userPalette
         )}, "model":"default" }`;
       }
 
-      const response = await fetch(url, inputData);
+      const response = await fetch(url, dataForApi);
       if (!response.ok) throw new Error("API is broken!");
       const data = await response.json();
       // Convert API data to an array of luminance for each color
@@ -185,37 +149,32 @@ class App extends React.Component {
           {
             id: 0,
             colorHex: rgbToHex(colorSorted[0]),
-            colorRgb: processRgbArr(colorSorted[0])
+            colorRgb: colorSorted[0].join(", ")
           },
           {
             id: 1,
             colorHex: rgbToHex(colorSorted[1]),
-            colorRgb: processRgbArr(colorSorted[1])
+            colorRgb: colorSorted[1].join(", ")
           },
           {
             id: 2,
             colorHex: rgbToHex(colorSorted[2]),
-            colorRgb: processRgbArr(colorSorted[2])
+            colorRgb: colorSorted[2].join(", ")
           },
           {
             id: 3,
             colorHex: rgbToHex(colorSorted[3]),
-            colorRgb: processRgbArr(colorSorted[3])
+            colorRgb: colorSorted[3].join(", ")
           },
           {
             id: 4,
             colorHex: rgbToHex(colorSorted[4]),
-            colorRgb: processRgbArr(colorSorted[4])
+            colorRgb: colorSorted[4].join(", ")
           }
         ],
-        userPalette: ["N", "N", "N", "N", "N"],
-        lockStatus: [
-          { id: 0, isLocked: false },
-          { id: 1, isLocked: false },
-          { id: 2, isLocked: false },
-          { id: 3, isLocked: false },
-          { id: 4, isLocked: false }
-        ]
+        // Reset custom palette and unlock all toolbar colors
+        userPalette: userPaletteDefault,
+        lockStatus: lockStatusDefault
       });
     } catch (err) {
       console.log(err);
