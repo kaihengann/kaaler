@@ -111,12 +111,32 @@ class App extends React.Component {
   };
 
   handleLock = (id, isLocked) => {
+    // Toggle lock status
     const newLockStatus = [...this.state.lockStatus];
     const changeLock = { id, isLocked: !isLocked };
     newLockStatus[id] = changeLock;
-    this.setState({
-      lockStatus: newLockStatus
-    });
+    // If color is getting locked, add toolbar color to userPalette
+    if (!isLocked) {
+      const colorToInsert = this.state.toolBarColors[id].colorRgb
+        .split(", ")
+        .map(number => parseInt(number, 10));
+      const newUserPalette = [...this.state.userPalette];
+      const indexToReplace = id;
+      newUserPalette.splice(indexToReplace, 1, colorToInsert);
+      this.setState({
+        lockStatus: newLockStatus,
+        userPalette: newUserPalette
+      });
+      // If color is getting unlocked, remove toolbar color from userPalette
+    } else {
+      const newUserPalette = [...this.state.userPalette];
+      const indexToReplace = id;
+      newUserPalette.splice(indexToReplace, 1, "N");
+      this.setState({
+        lockStatus: newLockStatus,
+        userPalette: newUserPalette
+      });
+    }
   };
 
   handleGenerate = async () => {
@@ -187,6 +207,14 @@ class App extends React.Component {
             colorHex: rgbToHex(colorSorted[4]),
             colorRgb: processRgbArr(colorSorted[4])
           }
+        ],
+        userPalette: ["N", "N", "N", "N", "N"],
+        lockStatus: [
+          { id: 0, isLocked: false },
+          { id: 1, isLocked: false },
+          { id: 2, isLocked: false },
+          { id: 3, isLocked: false },
+          { id: 4, isLocked: false }
         ]
       });
     } catch (err) {

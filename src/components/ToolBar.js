@@ -12,7 +12,6 @@ const ToolBar = ({
 }) => {
   
   const toolBarLockButtons = lockStatus.map(({ id, isLocked }) => {
-    console.log(isLocked);
     return (
       <button
         className={isLocked ? "lockButton locked" : "lockButton unlocked"}

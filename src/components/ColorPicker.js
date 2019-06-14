@@ -27,8 +27,8 @@ const ColorPicker = ({
   return (
     <div className={isClicked ? "colorPicker visible" : "colorPicker hidden"}>
       <div className="palette">{paletteColorButtons}</div>
-      <label className="colorPickerText">Hex</label>
       <div className="inputForm">
+      <label className="colorPickerText">Hex</label>
         <input
           type="text"
           name="hexInput"
