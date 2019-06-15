@@ -34,6 +34,7 @@ const ColorPicker = ({
           name="hexInput"
           className="colorPickerInput"
           value={selectedColorHex}
+          readOnly
         />
         <label className="colorPickerText">RGB</label>
         <input
@@ -41,6 +42,7 @@ const ColorPicker = ({
           name="rgbInput"
           className="colorPickerInput"
           value={selectedColorRgb}
+          readOnly
         />
       </div>
     </div>
