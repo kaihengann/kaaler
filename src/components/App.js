@@ -1,12 +1,13 @@
 import React from "react";
 import "../styles/App.css";
+
 import NavBar from "./NavBar";
 import ToolBar from "./ToolBar";
 import ShowCase from "./ShowCase";
-import { rgbToHex } from "../rgbToHex";
 import ColorPicker from "./ColorPicker";
-import { dataForApi, url } from "../api";
 import CardsContainer from "./CardsContainer";
+import { rgbToHex } from "../rgbToHex";
+import { dataForApi, url } from "../api";
 import { relativeLuminance, partialLuminance } from "../luminance";
 import {
   toolBarColorsDefault,

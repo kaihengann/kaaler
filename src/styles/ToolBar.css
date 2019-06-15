@@ -78,15 +78,17 @@
   border:none;
   margin: 0px 20px;
   outline:none;
-  
+  opacity: 0.6;
 }
 
 .lockButton:hover,.lockButton:active{
   background: url(../assets/icons/locked.svg);
   transform: scale(1.1);
+  opacity: 0.9;
 }
 .locked {
   background: url(../assets/icons/locked.svg);
+  opacity: 0.9;
 }
 
 .unlocked {
