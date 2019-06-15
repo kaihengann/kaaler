@@ -1,4 +1,4 @@
-# Overview
+# About
 - Kaaler is an interactive color prototyping tool for visualising harmonious color palettes on a UI.
 
 # Why?
