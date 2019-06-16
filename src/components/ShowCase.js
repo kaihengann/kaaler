@@ -3,7 +3,7 @@ import "../styles/ShowCase.css";
 import GeneralButton from "./GeneralButton"
 import { textColor } from "../colorContrast";
 
-const ShowCase = ({ bgColor, buttonColor }) => {
+const ShowCase = ({ buttonColor }) => {
   return (
     <div className="showCase">
       <div className="showCaseText">

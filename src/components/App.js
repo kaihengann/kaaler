@@ -110,13 +110,19 @@ class App extends React.Component {
     try {
       // Determine whether any color is locked
       const nCount = this.state.userPalette.filter(item => item === "N").length;
+      console.log(nCount);
 
       // If user has locked any color, send color data to API
       if (nCount < 5) {
         dataForApi.body = `{"input": ${JSON.stringify(
           this.state.userPalette
         )}, "model":"default" }`;
+        // If no colors are selected/locked, send data without color data to API
+      } else {
+        dataForApi.body = `{ "model":"default"}`;
       }
+      console.log(dataForApi.body);
+
       const response = await fetch(url, dataForApi);
       if (!response.ok) throw new Error("API is broken!");
       const data = await response.json();
