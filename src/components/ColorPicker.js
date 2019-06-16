@@ -20,6 +20,7 @@ const ColorPicker = ({
         key={id}
         style={{ background: colorHex }}
         onClick={() => onClick(id, colorHex, colorRgb)}
+        data-testid={`colorpicker${id}`}
       />
     );
   });
@@ -28,18 +29,20 @@ const ColorPicker = ({
     <div className={isClicked ? "colorPicker visible" : "colorPicker hidden"}>
       <div className="palette">{paletteColorButtons}</div>
       <div className="inputForm">
-        <label className="colorPickerText">Hex</label>
+        <label htmlFor="hexInput" className="colorPickerText">
+          Hex
+        </label>
         <input
           type="text"
-          name="hexInput"
+          id="hexInput"
           className="colorPickerInput"
           value={selectedColorHex}
           readOnly
         />
-        <label className="colorPickerText">RGB</label>
+        <label htmlFor="rgbInput" className="colorPickerText">RGB</label>
         <input
           type="text"
-          name="rgbInput"
+          id="rgbInput"
           className="colorPickerInput"
           value={selectedColorRgb}
           readOnly
