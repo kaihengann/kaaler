@@ -9,7 +9,6 @@ import CardsContainer from "./CardsContainer";
 
 import { rgbToHex } from "../rgbToHex";
 import { dataForApi, url } from "../api";
-import { relativeLuminance, partialLuminance } from "../luminance";
 import {
   toolBarColorsDefault,
   paletteColorsDefault,
@@ -124,62 +123,38 @@ class App extends React.Component {
         )}, "model":"default" }`;
       }
       const response = await fetch(url, dataForApi);
-      if (!response.ok) throw new Error("API is broken!");
+      if (!response.ok) throw new Error("API is broken!")
       const data = await response.json();
-
-      // Convert API data to an array of luminance for each color
-      const lumArr = data.result.map(arr =>
-        relativeLuminance(partialLuminance(arr))
-      );
-
-      // Associate luminance with their respective color code
-      const lumUnsorted = {
-        [lumArr[0]]: data.result[0],
-        [lumArr[1]]: data.result[1],
-        [lumArr[2]]: data.result[2],
-        [lumArr[3]]: data.result[3],
-        [lumArr[4]]: data.result[4]
-      };
-
-      // Sort luminance in descending order
-      const lumArrSorted = lumArr
-        .sort((a, b) => b - a)
-        .map(key => key.toString());
-
-      // Create new array of colors in order of luminance
-      const colorSorted = lumArrSorted.map(key => lumUnsorted[key]);
-
+      
       // Replace old color palette with a new one
       this.setState({
         toolBarColors: [
           {
             id: 0,
-            colorHex: rgbToHex(colorSorted[0]),
-            colorRgb: colorSorted[0].join(", ")
+            colorHex: rgbToHex(data.result[0]),
+            colorRgb: data.result[0].join(", ")
           },
           {
             id: 1,
-            colorHex: rgbToHex(colorSorted[1]),
-            colorRgb: colorSorted[1].join(", ")
+            colorHex: rgbToHex(data.result[1]),
+            colorRgb: data.result[1].join(", ")
           },
           {
             id: 2,
-            colorHex: rgbToHex(colorSorted[2]),
-            colorRgb: colorSorted[2].join(", ")
+            colorHex: rgbToHex(data.result[2]),
+            colorRgb: data.result[2].join(", ")
           },
           {
             id: 3,
-            colorHex: rgbToHex(colorSorted[3]),
-            colorRgb: colorSorted[3].join(", ")
+            colorHex: rgbToHex(data.result[3]),
+            colorRgb: data.result[3].join(", ")
           },
           {
             id: 4,
-            colorHex: rgbToHex(colorSorted[4]),
-            colorRgb: colorSorted[4].join(", ")
+            colorHex: rgbToHex(data.result[4]),
+            colorRgb: data.result[4].join(", ")
           }
-        ],
-        userPalette: userPaletteDefault, // Reset userPalette data
-        lockStatus: lockStatusDefault // Unlock all toolbar colors
+        ]
       });
     } catch (err) {
       console.log(err);
@@ -188,18 +163,18 @@ class App extends React.Component {
   render() {
     // Assign generated colors to CSS variables
     const colorVar = {
-      "--colorLight1": this.state.toolBarColors[0].colorHex,
-      "--colorLight2": this.state.toolBarColors[1].colorHex,
-      "--colorMain": this.state.toolBarColors[2].colorHex,
-      "--colorDark2": this.state.toolBarColors[3].colorHex,
-      "--colorDark1": this.state.toolBarColors[4].colorHex
+      "--color0": this.state.toolBarColors[0].colorHex,
+      "--color1": this.state.toolBarColors[1].colorHex,
+      "--color2": this.state.toolBarColors[2].colorHex,
+      "--color3": this.state.toolBarColors[3].colorHex,
+      "--color4": this.state.toolBarColors[4].colorHex
     };
 
     return (
       <div id="app" style={colorVar}>
-        <NavBar />
-        <ShowCase />
-        <CardsContainer />
+        <NavBar bgColor={this.state.toolBarColors[4].colorRgb} />
+        <ShowCase bgColor={this.state.toolBarColors[1].colorRgb} buttonColor={this.state.toolBarColors[2].colorRgb} />
+        <CardsContainer colorRgb={this.state.toolBarColors[4].colorRgb} />
         <ColorPicker
           colors={this.state.paletteColors}
           onClick={this.handleClick}

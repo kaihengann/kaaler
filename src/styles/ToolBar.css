@@ -47,23 +47,23 @@
 }
 
 .toolBarColorButton:nth-child(1) {
-  background-color: var(--colorLight1);
+  background-color: var(--color0);
 }
 
 .toolBarColorButton:nth-child(2) {
-  background-color: var(--colorLight2);
+  background-color: var(--color1);
 }
 
 .toolBarColorButton:nth-child(3) {
-  background-color: var(--colorMain);
+  background-color: var(--color2);
 }
 
 .toolBarColorButton:nth-child(4) {
-  background-color: var(--colorDark2);
+  background-color: var(--color3);
 }
 
 .toolBarColorButton:nth-child(5) {
-  background-color: var(--colorDark1);
+  background-color: var(--color4);
 }
 
 .locks {

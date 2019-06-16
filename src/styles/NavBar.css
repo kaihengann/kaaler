@@ -6,17 +6,16 @@
   padding: 15px 0;
   width: 100%;
   height: auto;
-  background-color: var(--colorDark1);
   opacity: 1;
   justify-content: center;
   z-index: 1;
-  box-shadow: 0px 2px 4px grey;
+  box-shadow: 0px 2px 10px -3px rgb(135, 135, 135);
+  background-color: var(--color4);
 }
 
 .navBar a {
   padding: 10px 20px;
   text-decoration: none;
-  color: white;
   margin: 0 10px;
   font-size: 0.9rem;
   font-weight: 700;

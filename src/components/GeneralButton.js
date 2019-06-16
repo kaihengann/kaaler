@@ -1,9 +1,9 @@
 import React from "react";
 import "../styles/GeneralButton.css";
 
-const GeneralButton = ({ className, text, link }) => {
+const GeneralButton = ({ className, text, link, buttonStyle }) => {
   return (
-    <a href={link} className={className}>
+    <a href={link} className={className} style={buttonStyle}>
       {text}
     </a>
   );
