@@ -13,12 +13,14 @@ import {
   toolBarColorsDefault,
   paletteColorsDefault,
   lockStatusDefault,
-  userPaletteDefault
+  userPaletteDefault,
+  mockUIDefault
 } from "../defaultStates";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.mockUI = mockUIDefault;
     this.state = {
       selectedButton: null,
       selectedColorHex: "",
@@ -73,8 +75,18 @@ class App extends React.Component {
         selectedColorHex: colorHex,
         selectedColorRgb: colorRgb,
         toolBarColors: newToolBarColors
-      });  
-    } 
+      });
+    }
+  };
+
+  // Hide colorpicker after clicking outside toolbar/colorpicker
+  handleClickOutside = e => {
+    if (!this.mockUI.includes(e.target.className)) {
+      this.setState({
+        isColorClicked: false,
+        selectedButton: null
+      });
+    }
   };
 
   handleLock = (id, isLocked) => {
@@ -170,7 +182,7 @@ class App extends React.Component {
     };
 
     return (
-      <div id="app" style={colorVar} >
+      <div id="app" style={colorVar} onClick={this.handleClickOutside}>
         <NavBar bgColor={this.state.toolBarColors[4].colorRgb} />
         <ShowCase buttonColor={this.state.toolBarColors[3].colorRgb} />
         <CardsContainer />
