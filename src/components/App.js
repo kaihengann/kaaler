@@ -132,9 +132,9 @@ class App extends React.Component {
         dataForApi.body = `{ "model":"default"}`;
       }
 
-      const response = await fetch(url, dataForApi);
-      if (!response.ok) throw new Error("API is broken!");
-      const data = await response.json();
+      const fetchData = await fetch(url, dataForApi);
+      if (!fetchData.ok) throw new Error("API is broken!");
+      const data = await fetchData.json();
 
       // Replace old color palette with a new one
       this.setState({
