@@ -41,9 +41,15 @@
   position: fixed;
   bottom: 30px;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%,115px);
   z-index: 1;
+  transition: all .5s;
+  /* opacity: 0.05; */
   /* visibility: hidden; */
+}
+.toolBar:hover {
+  transform: translate(-50%, -1px);
+  /* opacity: 1; */
 }
 
 .toolBarColorButton:nth-child(1) {

@@ -19,11 +19,11 @@
 }
 
 .hiEmphasis {
-  background-color: var(--color2);
+  background-color: var(--color3);
 }
 
 .midEmphasis {
-  border: 2px solid var(--color2);
+  border: 2px solid var(--color3);
   color: rgb(23, 23, 23);
 }
 

@@ -4,6 +4,6 @@
   justify-content: center;
   text-align: center;
   flex-direction: column;
-  background-color: var(--color3);
-  transition: background 1s ease, color 1s ease;
+  background-color: var(--color2);
+  transition: all 1s ease;
 }

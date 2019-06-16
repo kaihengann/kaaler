@@ -17,6 +17,7 @@
   opacity: 1;
   transition: opacity 0.4s ease 0s;
 }
+
 .hidden {
   opacity: 0;
   transition: opacity 0.4s ease 0s;
