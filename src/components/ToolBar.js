@@ -10,13 +10,13 @@ const ToolBar = ({
   lockStatus,
   onLock
 }) => {
-  
   const toolBarLockButtons = lockStatus.map(({ id, isLocked }) => {
     return (
       <button
         className={isLocked ? "lockButton locked" : "lockButton unlocked"}
         key={id}
         id={id}
+        data-testid={`lockButton${id}`}
         onClick={() => onLock(id, isLocked)}
       />
     );
@@ -32,6 +32,7 @@ const ToolBar = ({
         }
         key={id}
         id={id}
+        data-testid={`toolBarColorButton${id}`}
         onClick={() => onClick(id, colorHex, colorRgb)}
       />
     );
@@ -39,9 +40,7 @@ const ToolBar = ({
   return (
     <div className="toolBar">
       {toolBarColorButtons}
-      <div className="locks">
-        {toolBarLockButtons} 
-      </div>
+      <div className="locks">{toolBarLockButtons}</div>
       <GenerateButton onGenerate={onGenerate} />
     </div>
   );
