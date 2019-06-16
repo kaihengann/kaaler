@@ -65,22 +65,14 @@ class App extends React.Component {
         colorHex,
         colorRgb
       };
+
       const newToolBarColors = [...this.state.toolBarColors];
       newToolBarColors[this.state.lastToolBarColorId] = transferedColor;
-
-      // record colors user has selected from colorpicker
-      const userSelectedColor = colorRgb
-        .split(", ")
-        .map(number => parseInt(number, 10));
-      const newUserPalette = [...this.state.userPalette];
-      const indexToReplace = this.state.lastToolBarColorId;
-      newUserPalette.splice(indexToReplace, 1, userSelectedColor);
 
       this.setState({
         selectedButton: id,
         selectedColorHex: colorHex,
         selectedColorRgb: colorRgb,
-        userPalette: newUserPalette,
         toolBarColors: newToolBarColors
       });
     }
@@ -116,16 +108,19 @@ class App extends React.Component {
 
   handleGenerate = async () => {
     try {
-      // If user has selected color(s), send color data to API
-      if (this.state.userPalette.length > 0) {
+      // Determine whether any color is locked
+      const nCount = this.state.userPalette.filter(item => item === "N").length;
+
+      // If user has locked any color, send color data to API
+      if (nCount < 5) {
         dataForApi.body = `{"input": ${JSON.stringify(
           this.state.userPalette
         )}, "model":"default" }`;
       }
       const response = await fetch(url, dataForApi);
-      if (!response.ok) throw new Error("API is broken!")
+      if (!response.ok) throw new Error("API is broken!");
       const data = await response.json();
-      
+
       // Replace old color palette with a new one
       this.setState({
         toolBarColors: [
