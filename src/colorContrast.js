@@ -42,5 +42,5 @@ export const textColor = colorRgb => {
   // Input must be in form of "num, num, num"
   if (typeof colorRgb !== "string") throw new Error("Input must be a string");
   const contrast = contrastOnWhite(colorRgb);
-  return { color: contrast > 3 ? "white" : "black" };
+  return { color: contrast > 2 ? "white" : "black" };
 };
