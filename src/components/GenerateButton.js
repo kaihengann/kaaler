@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/GenerateButton.css";
-import { MetroSpinner } from "react-spinners-kit";
+import { ClassicSpinner } from "react-spinners-kit";
 
 const GenerateButton = ({ onGenerate, isLoading }) => {
   return (
@@ -8,7 +8,7 @@ const GenerateButton = ({ onGenerate, isLoading }) => {
       {isLoading ? (
         <button className="generateButton" onClick={onGenerate}>
           <div className="spinner">
-            <MetroSpinner
+            <ClassicSpinner
               size={20}
               color="#000000"
               loading={isLoading}
