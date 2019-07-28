@@ -46,8 +46,11 @@
 }
 
 .toolBar:hover {
-  /* transform: translate(-50%, -1px); */
   opacity: 1;
+}
+
+.toolBarColorButton {
+  cursor: pointer;
 }
 
 .toolBarColorButton:nth-child(1) {
@@ -83,6 +86,7 @@
   margin: 0px 20px;
   outline: none;
   opacity: 0.6;
+  cursor: pointer;
 }
 
 .lockButton:hover {

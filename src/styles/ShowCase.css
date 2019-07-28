@@ -2,7 +2,6 @@
   height: 50vh;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  /* background: url("https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"); */
   background-color: #f5f5f5;
   box-shadow: 5px 8px 12px -6px rgba(0, 0, 0, 0.4);
 }
@@ -19,9 +18,17 @@
   background-color: var(--color3);
 }
 
+.hiEmphasis:hover {
+  cursor: default;
+}
+
 .midEmphasis {
   border: 2px solid var(--color3);
   color: rgb(23, 23, 23);
+}
+
+.midEmphasis:hover {
+  cursor: default;
 }
 
 .showCaseText {
