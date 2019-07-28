@@ -8,7 +8,8 @@ const ToolBar = ({
   onGenerate,
   selectedButton,
   lockStatus,
-  onLock
+  onLock,
+  isLoading
 }) => {
   const toolBarLockButtons = lockStatus.map(({ id, isLocked }) => {
     return (
@@ -41,7 +42,7 @@ const ToolBar = ({
     <div className="toolBar">
       {toolBarColorButtons}
       <div className="locks">{toolBarLockButtons}</div>
-      <GenerateButton onGenerate={onGenerate} />
+      <GenerateButton onGenerate={onGenerate} isLoading={isLoading} />
     </div>
   );
 };

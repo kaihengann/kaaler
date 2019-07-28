@@ -1,8 +1,8 @@
 .generateButton {
   background-color: rgb(253, 253, 253);
   display: block;
-  width: auto;
-  height: auto;
+  width: 107px;
+  height: 36px;
   padding: 5px 20px;
   margin: 10px auto;
   border-radius: 20px;
@@ -12,11 +12,15 @@
   -webkit-appearance: none;
   font-family: "Fugaz One";
   font-size: 1rem;
-  color: rgb(45, 45, 45)
+  color: rgb(45, 45, 45);
 }
 
 .generateButton:hover {
   box-shadow: 5px 8px 10px -10px rgba(0, 0, 0, 0.8);
   transform: translate(0, -1px);
   cursor: pointer;
+}
+
+.spinner {
+  margin-left: 20px;
 }
